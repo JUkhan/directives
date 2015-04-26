@@ -14,6 +14,7 @@ class reactWidgetSvc extends BaseSvc
 	            {name:'Name', type:'human'},
 	             {name:'Country', type:'country'},
 	              {name:'Age', type:'int', min:20, max:60}
+	              //{name:'spark', type:'int', array:true, limit:12, min:1, max:15}
 	            ]
 	    };
 	    

@@ -1,11 +1,26 @@
+// editor = React.createElement(NoteEditor, {note: selectedNote, onChange: this.props.onChangeNote})
+var sparkLine=React.createClass({displayName: "sparkLine",
+    componentDidMount:function(){
+        this.renderSparkline()
+    },
+  componentDidUpdate: function(){
+    this.renderSparkline()
+  },
+  render: function(){
+   return React.createElement("span", null)
+  },
+  renderSparkline:function(){
+      var data=angular.isArray(this.props.data)?this.props.data:this.props.data.split(',');
+      $(this.getDOMNode()).sparkline(data, this.props.options);
+  }
+})
 var HelloComponent = React.createClass({displayName: "HelloComponent",
   propTypes: {
     config : React.PropTypes.object.isRequired
   },
   componentWillMount:function(){
-       console.log('component will mount'); 
      var config=this.props.config;
-     config.className=config.className||'table table-bordered table-striped';
+    
      if(config.data){
         if(!config.columns){
             config.columns=[];    
@@ -15,20 +30,15 @@ var HelloComponent = React.createClass({displayName: "HelloComponent",
         }
      }  
   },
-  componentDidMount:function(){
-     console.log('component did mount'); 
-  } ,
   onClick:function(){
   	alert(this.props.fname)
   },
   render: function() {
-     
     var config=this.props.config;
-    
+     config.className=config.className||'table table-bordered table-striped';
     if(!config.data){
        return React.createElement("div", null, React.createElement("b", null, "Data not found.")) 
     }
-     console.log('start rendering');
     if(!config.columns){
      this.componentWillMount()
     }
@@ -51,6 +61,9 @@ var HelloComponent = React.createClass({displayName: "HelloComponent",
                            React.createElement("tr", {key: index}, 
                             
                                 config.columns.map(function(col){
+                                    if(col.spark){
+                                        return React.createElement("td", {key: col.field}, React.createElement(sparkLine, {data: row[col.field], options: col.options}))
+                                    }
                                     return React.createElement("td", {key: col.field}, row[col.field])
                                 })
                             
@@ -60,7 +73,6 @@ var HelloComponent = React.createClass({displayName: "HelloComponent",
                         
                 
                 )
-               // console.log('render done....');
             )
             )
         )
