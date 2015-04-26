@@ -1,0 +1,15 @@
+<h3>widget Name : {{vm.title}}</h3>
+<div table-com data="vm.list">
+  
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <highchart id="chart1" config="vm.chartConfig"></highchart>
+    </div>
+    <div class="col-md-2">
+          <div>Default Tupe</div>
+        <select ng-model="vm.chartConfig.options.chart.type" ng-options="t.id as t.title for t in vm.chartTypes" ></select>
+        <div>Stack</div>
+       <select ng-model="vm.chartConfig.options.plotOptions.series.stacking" ng-options="t.id as t.title for t in vm.chartStack"></select>
+    </div>
+</div>
