@@ -12,7 +12,7 @@ class reactWidgetCtrl extends BaseCtrl
 		        alert(name+'cv');
 		    },
 		    columns:[
-		        {field:'Name'}, {field:'Country'} ,{field:'Age'}, {field:'spark', displayName:'Spark Line', spark:true, options:{type:'line'}}
+		        {field:'Name'}, {field:'Country'} ,{field:'Age', style:{color:'red'}}, {field:'spark', displayName:'Spark Line', spark:true, options:{type:'line'}}
 		        ]
 		};
 		this.loadData();

@@ -348,3 +348,106 @@ File name: 'E:\FFV\directives\reactApp\Scripts\Modules\jwtReactComs\reactWidgetC
 2015-04-26 20:19:26,182 [92] INFO  Jwtex.JwtExController - files found: 3
 2015-04-26 20:23:30,132 [83] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
 2015-04-26 20:23:30,133 [83] INFO  Jwtex.JwtExController - files found: 3
+2015-04-26 22:14:50,483 [11] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-26 22:14:50,903 [11] INFO  Jwtex.JwtExController - files found: 3
+2015-04-26 22:15:32,179 [20] ERROR Jwtex.JwtExController - System.IO.DirectoryNotFoundException: Could not find a part of the path 'E:\FFV\directives\reactApp\Scripts\Modules\test\test.js'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Write(String path, String content)
+   at Jwtex.JwtExController.SaveFile(String mode, String directoryName, String fileName, String content)
+2015-04-26 22:15:34,686 [22] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-26 22:15:34,687 [22] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 07:17:15,716 [52] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-28 07:17:15,717 [52] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 07:23:21,556 [55] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 07:23:21,558 [55] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 07:41:03,312 [39] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-28 07:41:03,314 [39] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 17:28:29,693 [488] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 17:28:29,694 [488] INFO  Jwtex.JwtExController - files found: 1
+2015-04-28 17:28:42,363 [476] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 17:28:42,365 [476] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 17:29:37,748 [488] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 17:29:37,749 [488] INFO  Jwtex.JwtExController - files found: 1
+2015-04-28 17:36:20,440 [494] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 17:36:20,442 [494] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 17:36:23,253 [497] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 17:36:23,254 [497] INFO  Jwtex.JwtExController - files found: 1
+2015-04-28 17:37:27,326 [497] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 17:37:27,327 [497] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 17:45:13,698 [513] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 17:45:13,699 [513] INFO  Jwtex.JwtExController - files found: 2
+2015-04-28 17:48:48,526 [509] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 17:48:48,527 [509] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 17:50:42,157 [509] INFO  Jwtex.JwtExController - name:home, mode:Widgets
+2015-04-28 17:50:42,158 [509] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 17:57:58,279 [507] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 17:57:58,281 [507] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 17:58:00,695 [515] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 17:58:00,696 [515] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 18:01:47,624 [516] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 18:01:47,625 [516] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 18:05:24,221 [512] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 18:05:24,222 [512] INFO  Jwtex.JwtExController - files found: 4
+2015-04-28 18:17:23,900 [520] INFO  Jwtex.JwtExController - name:testModule, mode:Modules
+2015-04-28 18:17:23,901 [520] INFO  Jwtex.JwtExController - files found: 2
+2015-04-28 18:17:25,706 [523] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 18:17:25,707 [523] INFO  Jwtex.JwtExController - files found: 4
+2015-04-28 18:24:29,310 [517] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-28 18:24:29,311 [517] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 18:26:11,407 [508] INFO  Jwtex.JwtExController - name:undefined, mode:Base
+2015-04-28 18:26:11,408 [508] INFO  Jwtex.JwtExController - files found: 5
+2015-04-28 18:26:27,124 [523] INFO  Jwtex.JwtExController - name:undefined, mode:Base
+2015-04-28 18:26:27,125 [523] INFO  Jwtex.JwtExController - files found: 5
+2015-04-28 18:28:16,692 [509] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 18:28:16,693 [509] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 18:28:25,178 [518] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 18:28:25,179 [518] INFO  Jwtex.JwtExController - files found: 4
+2015-04-28 18:30:47,329 [524] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-28 18:30:47,331 [524] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 18:31:38,233 [518] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 18:31:38,234 [518] INFO  Jwtex.JwtExController - files found: 4
+2015-04-28 18:31:38,243 [526] ERROR Jwtex.JwtExController - System.IO.DirectoryNotFoundException: Could not find a part of the path 'E:\FFV\directives\reactApp\Scripts\Modules\'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Write(String path, String content)
+   at Jwtex.JwtExController.SaveFile(String mode, String directoryName, String fileName, String content)
+2015-04-28 18:31:43,808 [517] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 18:31:43,809 [517] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 18:31:46,136 [522] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 18:31:46,137 [522] INFO  Jwtex.JwtExController - files found: 4
+2015-04-28 18:31:55,130 [518] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 18:31:55,131 [518] INFO  Jwtex.JwtExController - files found: 4
+2015-04-28 19:05:08,921 [500] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-28 19:05:08,922 [500] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 19:09:06,887 [496] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 19:09:06,888 [496] INFO  Jwtex.JwtExController - files found: 4
+2015-04-28 19:09:06,901 [493] ERROR Jwtex.JwtExController - System.IO.DirectoryNotFoundException: Could not find a part of the path 'E:\FFV\directives\reactApp\Scripts\Modules\'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Write(String path, String content)
+   at Jwtex.JwtExController.SaveFile(String mode, String directoryName, String fileName, String content)
+2015-04-28 19:10:36,558 [491] INFO  Jwtex.JwtExController - name:jwtReactComs, mode:Modules
+2015-04-28 19:10:36,560 [491] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 19:10:54,335 [525] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 19:10:54,336 [525] INFO  Jwtex.JwtExController - files found: 4
+2015-04-28 19:24:55,733 [515] INFO  Jwtex.JwtExController - name:chatWidget, mode:Widgets
+2015-04-28 19:24:55,734 [515] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 19:25:10,707 [516] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-28 19:25:10,708 [516] INFO  Jwtex.JwtExController - files found: 3
+2015-04-28 19:31:35,730 [489] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 19:31:35,732 [489] INFO  Jwtex.JwtExController - files found: 4
+2015-04-28 19:49:34,796 [446] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-28 19:49:34,798 [446] INFO  Jwtex.JwtExController - files found: 4
