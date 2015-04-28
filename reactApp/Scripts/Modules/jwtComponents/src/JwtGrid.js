@@ -1,17 +1,31 @@
 var Pager=React.createClass({
     displayName:'Pager',
+	getInitialState:function(){
+		return {limit:20, pageNo:1, totalRow:0, totalPage:0}
+	},
     onFirst:function(){
 		console.log('first', arguments);
 	},
 	onLast:function(){
 		
 	},
-	onPrevious:function(){
-		
+	onPrevious:function(){		
+		if(this.state.pageNo>1){
+			this.state.pageNo--;
+			this.props.onPageChange(this.state.pageNo);
+		}
 	},
 	onNext:function(){
-		
+		if(this.state.totalPage>this.state.pageNo){
+			this.state.pageNo++;
+			this.props.onPageChange(this.state.pageNo);
+		}
 	},
+	componentDidMount:function(){
+        this.state.limit=this.props.limit;
+		this.state.totalRow=this.props.totalRow;
+		this.state.totalPage=(this.props.totalRow/this.props.limit)+((this.props.totalRow%this.props.limit)?0:1);
+    },
     render:function(){
         return(
             <ul className="pager">
@@ -39,7 +53,9 @@ var SparkLine=React.createClass({
   }
 });
 var JwtGrid = React.createClass({
-  
+  getInitialState:function(){
+		return {data:[], pageNo:1}
+	},
   componentWillMount:function(){
      var options=this.props.options;
     
@@ -52,15 +68,26 @@ var JwtGrid = React.createClass({
         }
      }  
   },
-  onClick:function(){
-  	alert(this.props.fname)
-  },
+  onPageChange:function(pageNo){
+  	//this.state.pageNo=pageNo;
+	this.setState({pageNo:pageNo});
+  },  
   render: function() {
     var options=this.props.options;
      options.className=options.className||'table table-bordered table-striped';
     if(!this.props.data){
        return <div><b>Data not found.</b></div> 
     }
+	var len=this.props.data.length, pager=null, limit=options.limit||5;
+	
+	if(len>limit){
+		pager=<Pager limit={limit} totalRow={len} onPageChange={this.onPageChange}  />
+		
+		this.state.data=this.props.data.slice(((this.state.pageNo-1)*limit),limit*this.state.pageNo);
+	}
+	else{
+		this.state.data=this.props.data;
+	}
     if(!options.columns){
      this.componentWillMount()
     }
@@ -78,7 +105,7 @@ var JwtGrid = React.createClass({
                 </thead>
                 <tbody>
                 {
-                     this.props.data.map(function(row, index){
+                     this.state.data.map(function(row, index){
                        return(
                            <tr key={index}>
                             {
@@ -96,7 +123,7 @@ var JwtGrid = React.createClass({
                 }
                 </tbody>
             </table> 
-			 <div><Pager/></div>
+			 <div>{pager}</div>
             </div>
         )
   }
