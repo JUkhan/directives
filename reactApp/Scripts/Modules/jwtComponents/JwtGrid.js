@@ -123,7 +123,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
                                     if(col.spark){
                                         return React.createElement("td", {key: col.field, style: col.style}, React.createElement(SparkLine, {data: row[col.field], options: col.options}))
                                     }
-                                    return React.createElement("td", {key: col.field, style: col.style}, row[col.field])
+                                    return React.createElement("td", {key: col.field, style: col.style, dangerouslySetInnerHTML:{__html:row[col.field]}})
                                 })
                             
                         ) 

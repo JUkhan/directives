@@ -470,3 +470,9 @@ File name: 'E:\FFV\directives\reactApp\Scripts\Base\JwtGrid.js'
 2015-04-29 07:13:31,883 [450] INFO  Jwtex.JwtExController - files found: 3
 2015-04-29 07:14:57,720 [461] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
 2015-04-29 07:14:57,721 [461] INFO  Jwtex.JwtExController - files found: 4
+2015-04-29 09:32:24,882 [22] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-29 09:32:26,170 [22] INFO  Jwtex.JwtExController - files found: 3
+2015-04-29 10:19:12,101 [29] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-29 10:19:12,114 [29] INFO  Jwtex.JwtExController - files found: 4
+2015-04-29 10:26:32,219 [29] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-29 10:26:32,219 [29] INFO  Jwtex.JwtExController - files found: 3

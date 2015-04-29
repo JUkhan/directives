@@ -9,7 +9,7 @@ class reactWidgetSvc extends BaseSvc
 	
 	getData(){
 	    var config={
-	        limit:5000,
+	        limit:50,
 	        columns:[
 	            {name:'Name', type:'human'},
 	             {name:'Country', type:'country'},

@@ -21,7 +21,8 @@ class reactWidgetCtrl extends BaseCtrl
 	loadData(){
 	    SVC.get(this).getData().success(res=>{console.log('done'); 
 	    this.data=angular.fromJson(res.data);
-	  this.person.render=false;
+	    this.data[0].Name='<b style="color:green">'+this.data[0].Name+'</b>';
+	   this.person.render=false;
 	     //React.render(React.createElement(HelloComponent, {config: this.person}), document.getElementById('mac'));
 	    });
 	}
