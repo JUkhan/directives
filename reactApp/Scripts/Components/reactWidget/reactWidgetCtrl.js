@@ -7,12 +7,10 @@ class reactWidgetCtrl extends BaseCtrl
 		super(scope);
 		SVC.set(this, svc);
 		this.title='reactWidget';
-		this.person={fname:'jasim khan', lname:'khan',
-		    onClick:function(name){
-		        alert(name+'cv');
-		    },
+		this.options={
+		   limit:5,
 		    columns:[
-		        {field:'Name'}, {field:'Country'} ,{field:'Age', style:{color:'red'}}, {field:'spark', displayName:'Spark Line', spark:true, options:{type:'line'}}
+		      {field:'Action', link:true, linkText:'Edit', onClick:row=>{alert(row.Country)}},  {field:'Name', sort:true, render:(row, inddex)=>'<b style="color:green">'+row.Name+'</b>'}, {field:'Country', link:true, onClick:row=>{alert(row.Country)}} ,{field:'Age', style:{color:'red'}}, {field:'spark', displayName:'Spark Line', spark:true, options:{type:'line'}}
 		        ]
 		};
 		this.loadData();
@@ -21,8 +19,7 @@ class reactWidgetCtrl extends BaseCtrl
 	loadData(){
 	    SVC.get(this).getData().success(res=>{console.log('done'); 
 	    this.data=angular.fromJson(res.data);
-	    this.data[0].Name='<b style="color:green">'+this.data[0].Name+'</b>';
-	   this.person.render=false;
+	   this.options.render=false;
 	     //React.render(React.createElement(HelloComponent, {config: this.person}), document.getElementById('mac'));
 	    });
 	}

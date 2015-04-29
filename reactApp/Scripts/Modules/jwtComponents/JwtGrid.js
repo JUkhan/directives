@@ -81,7 +81,21 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
   },
   onPageChange:function(pageNo){  	
 	this.setState({pageNo:pageNo});
-  },  
+  }, 
+	onSort:function(field){
+		this.setState({data:this.state.data.sort(this.sortBy(field, true))});
+	},
+  sortBy:function(field, reverse, primer){
+   var key = primer ? function(x) {return primer(x[field])} : function(x) {return x[field]};
+   reverse = !reverse ? 1 : -1;
+   return function (a, b) {return a = key(a), b = key(b), reverse * ((a > b) - (b > a)); } 
+  },
+  //Sort by price high to low
+  //console.table( homes.sort(sort_by('price', true, parseInt)));
+  
+  // Sort by city, case-insensitive, A-Z
+  //console.table( homes.sort(sort_by('city', false, function(a){return a.toUpperCase()})));
+  
   render: function() {
     var options=this.props.options;
      options.className=options.className||'table table-bordered table-striped';
@@ -108,8 +122,11 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
                     React.createElement("tr", null, 
                     
                         options.columns.map(function(col, index){
+							if(col.sort){
+								return  React.createElement("th", {key: index}, React.createElement("span", {onClick: this.onSort.bind(this, col.field), style: {cursor:'pointer'}}, col.displayName||col.field))
+							}
                             return React.createElement("th", {key: index}, col.displayName||col.field)
-                        })
+                        }.bind(this))
                     
                     )
                 ), 
@@ -119,11 +136,17 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
                        return(
                            React.createElement("tr", {key: index}, 
                             
-                                options.columns.map(function(col){
+                                options.columns.map(function(col, id){
                                     if(col.spark){
-                                        return React.createElement("td", {key: col.field, style: col.style}, React.createElement(SparkLine, {data: row[col.field], options: col.options}))
+                                        return React.createElement("td", {key: id, style: col.style}, React.createElement(SparkLine, {data: row[col.field], options: col.options}))
                                     }
-                                    return React.createElement("td", {key: col.field, style: col.style, dangerouslySetInnerHTML:{__html:row[col.field]}})
+									if(angular.isFunction(col.render)){
+										return React.createElement("td", {key: id, dangerouslySetInnerHTML: {__html: col.render(row,index)}})
+									}
+									if(col.link){
+										return React.createElement("td", {key: id, style: col.style}, React.createElement("a", {onClick: col.onClick.bind(null,row, index), href: "javascript:;"}, col.linkText?col.linkText:row[col.field]))
+									}
+                                    return React.createElement("td", {key: id, style: col.style}, row[col.field])
                                 })
                             
                         ) 
