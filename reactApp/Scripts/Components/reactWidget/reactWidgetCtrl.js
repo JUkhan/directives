@@ -26,7 +26,26 @@ class reactWidgetCtrl extends BaseCtrl
 	     //React.render(React.createElement(HelloComponent, {config: this.person}), document.getElementById('mac'));
 	    });
 	}
-	
+	/*
+	var sort_by = function(field, reverse, primer){
+
+   var key = primer ? 
+       function(x) {return primer(x[field])} : 
+       function(x) {return x[field]};
+
+   reverse = !reverse ? 1 : -1;
+
+   return function (a, b) {
+       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+     } 
+}
+
+ //Sort by price high to low
+console.table( homes.sort(sort_by('price', true, parseInt)));
+
+// Sort by city, case-insensitive, A-Z
+console.table( homes.sort(sort_by('city', false, function(a){return a.toUpperCase()})));
+	*/
 	sparkLine(){
 	    
 	    var myvalues = [10,8,5,7,4,4];
