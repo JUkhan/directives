@@ -68,8 +68,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
 		return {data:[], pageNo:1}
 	},
   componentWillMount:function(){
-     var options=this.props.options;
-    
+     var options=this.props.options;    
      if(this.props.data){
         if(!options.columns){
             options.columns=[];    
@@ -77,13 +76,16 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
               options.columns.push({field:col, displayName:col});
           }
         }
-     }  
+     } 
+	//do other stuff
+	options.className=options.className||'table table-bordered table-striped';	
   },
   onPageChange:function(pageNo){  	
 	this.setState({pageNo:pageNo});
   }, 
 	onSort:function(field){
-		this.setState({data:this.state.data.sort(this.sortBy(field, true))});
+	this.setProps({data:this.props.data.sort(this.sortBy(field, true))});
+		//this.forceUpdate();
 	},
   sortBy:function(field, reverse, primer){
    var key = primer ? function(x) {return primer(x[field])} : function(x) {return x[field]};
@@ -95,11 +97,31 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
   
   // Sort by city, case-insensitive, A-Z
   //console.table( homes.sort(sort_by('city', false, function(a){return a.toUpperCase()})));
-  
+  getDataNotFound:function(){
+	 var options=this.props.options;
+	return (
+            React.createElement("div", {className: "jwt-grid"}, 
+            React.createElement("table", {className: options.className}, 
+                React.createElement("thead", null, 
+                    React.createElement("tr", null, 
+                    
+                        options.columns.map(function(col, index){ return React.createElement("th", {key: index}, col.displayName||col.field)})
+                    
+                    )
+                ), 
+                React.createElement("tbody", null, 
+                React.createElement("tr", null, React.createElement("td", {style: {textAlign:'center'}, colSpan: options.columns.length}, React.createElement("b", null, "Data not found.")))
+                )
+            )			
+            )
+        )
+  },
   render: function() {
-    var options=this.props.options;
-     options.className=options.className||'table table-bordered table-striped';
+    var options=this.props.options;     
     if(!this.props.data){
+		if(options.columns){
+			return this.getDataNotFound();
+		}
        return React.createElement("div", null, React.createElement("b", null, "Data not found.")) 
     }
 	var len=this.props.data.length, pager=null, limit=options.limit||20;
