@@ -488,3 +488,110 @@ File name: 'E:\FFV\directives\reactApp\Scripts\Base\JwtGrid.js'
 2015-04-29 22:38:27,052 [439] INFO  Jwtex.JwtExController - files found: 4
 2015-04-29 23:06:28,672 [508] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
 2015-04-29 23:06:28,673 [508] INFO  Jwtex.JwtExController - files found: 4
+2015-04-30 05:12:02,435 [456] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-30 05:12:02,437 [456] INFO  Jwtex.JwtExController - files found: 4
+2015-04-30 05:28:44,536 [455] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-30 05:28:44,537 [455] INFO  Jwtex.JwtExController - files found: 3
+2015-04-30 05:46:26,619 [462] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-30 05:46:26,620 [462] INFO  Jwtex.JwtExController - files found: 4
+2015-04-30 21:07:07,951 [445] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-30 21:07:07,953 [445] INFO  Jwtex.JwtExController - files found: 4
+2015-04-30 21:32:26,702 [456] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-30 21:32:26,703 [456] INFO  Jwtex.JwtExController - files found: 4
+2015-04-30 21:33:44,925 [454] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-04-30 21:33:44,926 [454] INFO  Jwtex.JwtExController - files found: 3
+2015-04-30 21:43:48,238 [436] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-30 21:43:48,240 [436] INFO  Jwtex.JwtExController - files found: 4
+2015-04-30 22:12:09,642 [436] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-30 22:12:09,644 [436] INFO  Jwtex.JwtExController - files found: 4
+2015-04-30 22:29:31,215 [456] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-04-30 22:29:31,216 [456] INFO  Jwtex.JwtExController - files found: 4
+2015-05-01 06:10:37,011 [456] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 06:10:37,012 [456] INFO  Jwtex.JwtExController - files found: 4
+2015-05-01 06:31:17,212 [454] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-05-01 06:31:17,214 [454] INFO  Jwtex.JwtExController - files found: 3
+2015-05-01 06:41:14,301 [439] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-05-01 06:41:14,303 [439] INFO  Jwtex.JwtExController - files found: 3
+2015-05-01 06:50:02,960 [437] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 06:50:02,962 [437] INFO  Jwtex.JwtExController - files found: 4
+2015-05-01 09:14:53,134 [462] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 09:14:53,135 [462] INFO  Jwtex.JwtExController - files found: 4
+2015-05-01 09:23:31,664 [445] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 09:23:31,665 [445] INFO  Jwtex.JwtExController - files found: 4
+2015-05-01 11:44:36,861 [467] ERROR Jwtex.JwtExController - System.UnauthorizedAccessException: Access to the path 'E:\FFV\directives\reactApp\Scripts\Modules\jwtComponents\Pager.js' is denied.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Read(String path)
+   at Jwtex.JwtExController.GetFileContent(String mode, String directoryName, String fileName)
+2015-05-01 11:59:40,464 [460] ERROR Jwtex.JwtExController - System.UnauthorizedAccessException: Access to the path 'E:\FFV\directives\reactApp\Scripts\Modules\jwtComponents\Pager.js' is denied.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Read(String path)
+   at Jwtex.JwtExController.GetFileContent(String mode, String directoryName, String fileName)
+2015-05-01 11:59:54,154 [444] ERROR Jwtex.JwtExController - System.UnauthorizedAccessException: Access to the path 'E:\FFV\directives\reactApp\Scripts\Modules\jwtComponents\SparkLine.js' is denied.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Read(String path)
+   at Jwtex.JwtExController.GetFileContent(String mode, String directoryName, String fileName)
+2015-05-01 12:00:50,543 [461] INFO  Jwtex.JwtExController - name:undefined, mode:Base
+2015-05-01 12:00:50,545 [461] INFO  Jwtex.JwtExController - files found: 5
+2015-05-01 12:08:48,564 [469] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 12:08:48,566 [469] INFO  Jwtex.JwtExController - files found: 5
+2015-05-01 12:09:03,618 [442] ERROR Jwtex.JwtExController - System.UnauthorizedAccessException: Access to the path 'E:\FFV\directives\reactApp\Scripts\Modules\jwtComponents\Pager.js' is denied.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Read(String path)
+   at Jwtex.JwtExController.GetFileContent(String mode, String directoryName, String fileName)
+2015-05-01 12:14:57,233 [450] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 12:14:57,234 [450] INFO  Jwtex.JwtExController - files found: 3
+2015-05-01 12:15:58,071 [442] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 12:15:58,073 [442] INFO  Jwtex.JwtExController - files found: 4
+2015-05-01 12:17:27,581 [450] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 12:17:27,582 [450] INFO  Jwtex.JwtExController - files found: 4
+2015-05-01 12:18:55,716 [450] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-05-01 12:18:55,717 [450] INFO  Jwtex.JwtExController - files found: 3
+2015-05-01 12:24:20,214 [466] INFO  jwt.internals.jwtAppManager - home
+2015-05-01 12:29:37,277 [477] ERROR Jwtex.JwtExController - System.IO.FileNotFoundException: Could not find file 'E:\FFV\directives\reactApp\Scripts\Components\reactWidget\jwtComponents.js'.
+File name: 'E:\FFV\directives\reactApp\Scripts\Components\reactWidget\jwtComponents.js'
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Read(String path)
+   at Jwtex.JwtExController.GetFileContent(String mode, String directoryName, String fileName)
+2015-05-01 14:18:05,027 [475] INFO  Jwtex.JwtExController - name:home, mode:Widgets
+2015-05-01 14:18:05,029 [475] INFO  Jwtex.JwtExController - files found: 3
+2015-05-01 16:40:45,923 [442] INFO  Jwtex.JwtExController - name:undefined, mode:Base
+2015-05-01 16:40:45,924 [442] INFO  Jwtex.JwtExController - files found: 5
+2015-05-01 16:49:52,417 [442] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-05-01 16:49:52,418 [442] INFO  Jwtex.JwtExController - files found: 3
+2015-05-01 16:53:33,385 [470] INFO  Jwtex.JwtExController - name:undefined, mode:Base
+2015-05-01 16:53:33,386 [470] INFO  Jwtex.JwtExController - files found: 5
+2015-05-01 16:54:41,270 [470] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-05-01 16:54:41,271 [470] INFO  Jwtex.JwtExController - files found: 3
+2015-05-01 18:03:49,614 [485] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 18:03:49,615 [485] INFO  Jwtex.JwtExController - files found: 4
+2015-05-01 18:03:49,631 [493] ERROR Jwtex.JwtExController - System.IO.DirectoryNotFoundException: Could not find a part of the path 'E:\FFV\directives\reactApp\Scripts\Modules\'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Write(String path, String content)
+   at Jwtex.JwtExController.SaveFile(String mode, String directoryName, String fileName, String content)
+2015-05-01 18:03:58,343 [450] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-05-01 18:03:58,344 [450] INFO  Jwtex.JwtExController - files found: 4

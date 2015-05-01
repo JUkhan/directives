@@ -13,4 +13,5 @@ var SparkLine=React.createClass({displayName: "SparkLine",
       $(this.getDOMNode()).sparkline(data, this.props.options);
   }
 });
-//export default SparkLine;
+export default SparkLine;
+

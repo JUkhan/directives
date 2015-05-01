@@ -24,7 +24,7 @@ class homeCtrl extends BaseCtrl
           ];
 	}
   	loadData(){
-      //SVC.get(this).getData().success(data=>{this.list= angular.fromJson(data);});
+      //SVC.get(this).getData().success(data=>{this.list= data;});
       this.chartConfig={
           "options":{
               "chart":{"type":"areaspline"},

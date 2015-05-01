@@ -8,7 +8,6 @@ class homeSvc extends BaseSvc
       	this.baseUrl=ngAuthSettings.apiServiceBaseUri;
 	}
   	getData(){
-       
         return HTTP.get(this).get(this.baseUrl+'api/orders');
   
     }
