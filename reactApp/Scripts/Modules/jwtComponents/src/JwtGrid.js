@@ -1,10 +1,72 @@
-import SparkLine from 'Scripts/Modules/jwtComponents/SparkLine.js';
-import Pager from 'Scripts/Modules/jwtComponents/Pager.js';
+
+var Pager=React.createClass({
+    displayName:'Pager',
+	getInitialState:function(){
+		return {limit:20, pageNo:1, totalRow:0, totalPage:0, firstClass:'disabled', lastClass:''}
+	},
+    onFirst:function(){
+		this.state.pageNo=1;
+		this.props.onPageChange(this.state.pageNo);
+		this.setState({firstClass:'disabled', lastClass:''});
+	},
+	onLast:function(){
+		this.state.pageNo=this.state.totalPage;
+		this.props.onPageChange(this.state.pageNo);	
+		this.setState({firstClass:'', lastClass:'disabled'});
+	},
+	onPrevious:function(){		
+		if(this.state.pageNo>1){
+			this.state.pageNo--;
+			this.props.onPageChange(this.state.pageNo);
+			this.setState({firstClass:this.state.pageNo===1?'disabled':'', lastClass:''});
+		}else{
+			this.setState({firstClass:'disabled', lastClass:''});
+		}
+	},
+	onNext:function(){
+		if(this.state.totalPage>this.state.pageNo){
+			this.state.pageNo++;
+			this.props.onPageChange(this.state.pageNo);	
+			this.setState({firstClass:'', lastClass:this.state.totalPage==this.state.pageNo?'disabled':''});
+		}else{
+			this.setState({firstClass:'', lastClass:'disabled'});
+		}
+	},
+	componentDidMount:function(){
+        this.state.limit=this.props.limit;
+		this.state.totalRow=this.props.totalRow;
+		this.state.totalPage=parseInt(this.props.totalRow/this.props.limit)+((this.props.totalRow%this.props.limit==0)?0:1);
+		
+    },
+    render:function(){
+        return(
+            <ul className="pager">
+			 <li className={this.state.firstClass}><a onClick={this.onFirst} href="javascript:;">First</a></li>
+              <li className={this.state.firstClass}><a onClick={this.onPrevious} href="javascript:;">Previous</a></li>
+              <li className={this.state.lastClass}><a onClick={this.onNext} href="javascript:;">Next</a></li>
+			   <li className={this.state.lastClass}><a onClick={this.onLast} href="javascript:;">Last</a></li>
+            </ul>
+            )
+    }
+});
+
+var SparkLine=React.createClass({
+    componentDidMount:function(){
+        this.renderSparkline()
+    },
+  componentDidUpdate: function(){
+    this.renderSparkline()
+  },
+  render: function(){
+   return <span/>
+  },
+  renderSparkline:function(){
+      var data=angular.isArray(this.props.data)?this.props.data:this.props.data.split(',');
+      $(this.getDOMNode()).sparkline(data, this.props.options);
+  }
+});
 
 var JwtGrid = React.createClass({
-  getDefaultProps:function(){
-      return {options:{}}
-  }, 
   getInitialState:function(){
 		return {data:[], pageNo:1, dataStorage:null, isFilter:false}
 	},
@@ -20,6 +82,9 @@ var JwtGrid = React.createClass({
      } 
 	//do other stuff
 	options.className=options.className||'table table-bordered table-striped';	
+  if(options.onKeypressFilter===undefined){
+        options.onKeypressFilter=true;
+  }
   },
   onPageChange:function(pageNo){  	
 	this.setState({pageNo:pageNo});
@@ -78,7 +143,7 @@ var JwtGrid = React.createClass({
   		this.state.pageNo=1;
   		searchText=searchText.toLowerCase();  		 		
   		var colimns=this.props.options.columns, temp=[];
-  		this.setProps({data:this.props.data.filter(function(item, index){
+  		this.setProps({data:this.state.dataStorage.filter(function(item, index){
   			var flag=false;
   			for(var col of colimns){
   				if(col.field && item[col.field]){
@@ -90,7 +155,10 @@ var JwtGrid = React.createClass({
   		})}); 
   },
   onSearchChane:function(event){
-  		if(event.keyCode==13){this.onSearch();}
+  		if(event.keyCode==13){this.onSearch();return;}
+      if(this.props.options.onKeypressFilter){
+         setTimeout(this.onSearch, 0);
+      }
   },
   getFilter:function(options){
   	if(!options.filter){return null;}
