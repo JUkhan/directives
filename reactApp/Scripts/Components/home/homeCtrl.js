@@ -23,6 +23,9 @@ class homeCtrl extends BaseCtrl
             {"id": "percent", "title": "Percent"}
           ];
 	}
+	filterValueChanged(obj){
+        console.log(obj);
+    } 
   	loadData(){
       //SVC.get(this).getData().success(data=>{this.list= data;});
       this.chartConfig={

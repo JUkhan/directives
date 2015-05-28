@@ -14,4 +14,3 @@ var SparkLine=React.createClass({displayName: "SparkLine",
   }
 });
 export default SparkLine;
-

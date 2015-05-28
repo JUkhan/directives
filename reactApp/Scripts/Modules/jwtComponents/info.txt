@@ -1,0 +1,1 @@
+jsx --harmony --watch --es6module E:\FFV\directives\reactApp\Scripts\Modules\jwtComponents\src E:\FFV\directives\reactApp\Scripts\Modules\jwtComponents

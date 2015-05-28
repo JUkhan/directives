@@ -1,75 +1,15 @@
 
-var Pager=React.createClass({
-    displayName:'Pager',
-	getInitialState:function(){
-		return {limit:20, pageNo:1, totalRow:0, totalPage:0, firstClass:'disabled', lastClass:''}
-	},
-    onFirst:function(){
-		this.state.pageNo=1;
-		this.props.onPageChange(this.state.pageNo);
-		this.setState({firstClass:'disabled', lastClass:''});
-	},
-	onLast:function(){
-		this.state.pageNo=this.state.totalPage;
-		this.props.onPageChange(this.state.pageNo);	
-		this.setState({firstClass:'', lastClass:'disabled'});
-	},
-	onPrevious:function(){		
-		if(this.state.pageNo>1){
-			this.state.pageNo--;
-			this.props.onPageChange(this.state.pageNo);
-			this.setState({firstClass:this.state.pageNo===1?'disabled':'', lastClass:''});
-		}else{
-			this.setState({firstClass:'disabled', lastClass:''});
-		}
-	},
-	onNext:function(){
-		if(this.state.totalPage>this.state.pageNo){
-			this.state.pageNo++;
-			this.props.onPageChange(this.state.pageNo);	
-			this.setState({firstClass:'', lastClass:this.state.totalPage==this.state.pageNo?'disabled':''});
-		}else{
-			this.setState({firstClass:'', lastClass:'disabled'});
-		}
-	},
-	componentDidMount:function(){
-        this.state.limit=this.props.limit;
-		this.state.totalRow=this.props.totalRow;
-		this.state.totalPage=parseInt(this.props.totalRow/this.props.limit)+((this.props.totalRow%this.props.limit==0)?0:1);
-		
-    },
-    render:function(){
-        return(
-            <ul className="pager">
-			 <li className={this.state.firstClass}><a onClick={this.onFirst} href="javascript:;">First</a></li>
-              <li className={this.state.firstClass}><a onClick={this.onPrevious} href="javascript:;">Previous</a></li>
-              <li className={this.state.lastClass}><a onClick={this.onNext} href="javascript:;">Next</a></li>
-			   <li className={this.state.lastClass}><a onClick={this.onLast} href="javascript:;">Last</a></li>
-            </ul>
-            )
-    }
-});
 
-var SparkLine=React.createClass({
-    componentDidMount:function(){
-        this.renderSparkline()
-    },
-  componentDidUpdate: function(){
-    this.renderSparkline()
-  },
-  render: function(){
-   return <span/>
-  },
-  renderSparkline:function(){
-      var data=angular.isArray(this.props.data)?this.props.data:this.props.data.split(',');
-      $(this.getDOMNode()).sparkline(data, this.props.options);
-  }
-});
+import Pager from 'Scripts/Modules/jwtComponents/Pager.js';
+import SparkLine from 'Scripts/Modules/jwtComponents/SparkLine.js';
 
 var JwtGrid = React.createClass({
   getInitialState:function(){
 		return {data:[], pageNo:1, dataStorage:null, isFilter:false}
 	},
+	 getDefaultProps:function(){
+      return {options:{}}
+  }, 
   componentWillMount:function(){
      var options=this.props.options;    
      if(this.props.data){
@@ -82,9 +22,9 @@ var JwtGrid = React.createClass({
      } 
 	//do other stuff
 	options.className=options.className||'table table-bordered table-striped';	
-  if(options.onKeypressFilter===undefined){
-        options.onKeypressFilter=true;
-  }
+	if(options.onKeypressFilter===undefined){
+	        options.onKeypressFilter=true;
+	}  
   },
   onPageChange:function(pageNo){  	
 	this.setState({pageNo:pageNo});
@@ -162,20 +102,18 @@ var JwtGrid = React.createClass({
   },
   getFilter:function(options){
   	if(!options.filter){return null;}
-  	return (
-  		//<div className="pull-right">
-        	<div style={{width:'35%'}} className="input-group">
+  	var pos='input-group pull-'+(this.props.options.filterPos||'right');
+  	return (  		
+        	<span style={{width:'220px'}} className={pos}>
 		      <input type="text" ref="txtSearch" onKeyDown={this.onSearchChane} className="form-control" placeholder="Search for..."/>
 		      <span className="input-group-btn">
 		        <button className="btn btn-default" onClick={this.onSearch} type="button">Go!</button>
 		      </span>
-		    </div>   
-		//</div>          
+		    </span>		    
   		)
   },
   render: function() {
-    var options=this.props.options; 
-
+    var options=this.props.options;     
     if(!this.props.data){
 		if(options.columns){
 			return this.getDataNotFound();
@@ -184,8 +122,8 @@ var JwtGrid = React.createClass({
     }
 	var len=this.props.data.length, pager=null, limit=options.limit||20;
 	if(options.filter && !this.state.isFilter){this.state.dataStorage=this.props.data;}	
-	if(len>limit){
-		pager=<Pager limit={limit} totalRow={len} onPageChange={this.onPageChange}  />
+	if(len>limit){		
+		pager=<Pager pos={options.pagerPos||'left'} limit={limit} totalRow={len} onPageChange={this.onPageChange}  />
 		
 		this.state.data=this.props.data.slice(((this.state.pageNo-1)*limit),limit*this.state.pageNo);
 	}
@@ -197,8 +135,8 @@ var JwtGrid = React.createClass({
     }
     var that=this;
     return (
-            <div className="jwt-grid">
-           	 <div>{this.getFilter(options)}</div>
+            <div className="jwt-grid table-responsive">
+           	 <div className="well">{pager}  {this.getFilter(options)}</div>
             <table className={options.className}>
                 <thead>
                     <tr>
@@ -238,10 +176,10 @@ var JwtGrid = React.createClass({
                 }
                 </tbody>
             </table> 
-			 <div>{pager}</div>
+			
             </div>
         )
   }
 });
 
-//export default JwtGrid;
+export default JwtGrid;

@@ -38,8 +38,9 @@ var Pager=React.createClass({
 		
     },
     render:function(){
+    	var classNames='pagination pull-'+this.props.pos;
         return(
-            <ul className="pager">
+            <ul className={classNames}>
 			 <li className={this.state.firstClass}><a onClick={this.onFirst} href="javascript:;">First</a></li>
               <li className={this.state.firstClass}><a onClick={this.onPrevious} href="javascript:;">Previous</a></li>
               <li className={this.state.lastClass}><a onClick={this.onNext} href="javascript:;">Next</a></li>
@@ -49,4 +50,4 @@ var Pager=React.createClass({
     }
 });
 
-//export default Pager;
+export default Pager;
