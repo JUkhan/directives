@@ -1,7 +1,8 @@
 
 
 import Pager from 'Scripts/Modules/jwtComponents/Pager.js';
-import SparkLine from 'Scripts/Modules/jwtComponents/SparkLine.js';
+import Row from 'Scripts/Modules/jwtComponents/Row.js';
+
 
 var JwtGrid = React.createClass({displayName: "JwtGrid",
   getInitialState:function(){
@@ -59,19 +60,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
             )
         )
   },
-  getLinks:function(row, col, index){
-	  	if(!angular.isArray(col.onClick)){
-			col.onClick=[col.onClick];
-		}
-		var linkText=col.linkText;
-		if(!linkText){
-			linkText=row[col.field];
-		}
-		if(!angular.isArray(linkText)){
-			linkText=[linkText];
-		}
-		return  col.onClick.map(function(fx, id){return React.createElement("a", {key: id, className: "link", onClick: fx.bind(null,row, index), href: "javascript:;"}, linkText[id])})		
-  },
+ 
   onSearch:function(){  		
   		var searchText=this.refs.txtSearch.getDOMNode().value;
   		if(!searchText){
@@ -107,7 +96,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
         	React.createElement("span", {style: {width:'220px'}, className: pos}, 
 		      React.createElement("input", {type: "text", ref: "txtSearch", onKeyDown: this.onSearchChane, className: "form-control", placeholder: "Search for..."}), 
 		      React.createElement("span", {className: "input-group-btn"}, 
-		        React.createElement("button", {className: "btn btn-default", onClick: this.onSearch, type: "button"}, "Go!")
+		        React.createElement("button", {className: "btn btn-default", onClick: this.onSearch, type: "button"}, React.createElement("span", {className: "glyphicon glyphicon-search"}), " Search")
 		      )
 		    )		    
   		)
@@ -153,24 +142,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
                 React.createElement("tbody", null, 
                 
                      this.state.data.map(function(row, index){
-                       return(
-                           React.createElement("tr", {key: index}, 
-                            
-                                options.columns.map(function(col, id){
-                                    if(col.spark){
-                                        return React.createElement("td", {key: id, style: col.style}, React.createElement(SparkLine, {data: row[col.field], options: col.options}))
-                                    }
-									if(angular.isFunction(col.render)){
-										return React.createElement("td", {key: id, dangerouslySetInnerHTML: {__html: col.render(row,index)}})
-									}
-									if(col.onClick){										
-										return React.createElement("td", {key: id, className: col.className, style: col.style}, that.getLinks(row, col, index))
-									}
-                                    return React.createElement("td", {key: id, className: col.className, style: col.style}, row[col.field])
-                                })
-                            
-                        ) 
-                        )
+                       		return React.createElement(Row, {key: index, options: options, data: row, index: index})
                      })   
                         
                 

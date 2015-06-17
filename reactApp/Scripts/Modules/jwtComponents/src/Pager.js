@@ -41,9 +41,9 @@ var Pager=React.createClass({
     	var classNames='pagination pull-'+this.props.pos;
         return(
             <ul className={classNames}>
-			 <li className={this.state.firstClass}><a onClick={this.onFirst} href="javascript:;">First</a></li>
-              <li className={this.state.firstClass}><a onClick={this.onPrevious} href="javascript:;">Previous</a></li>
-              <li className={this.state.lastClass}><a onClick={this.onNext} href="javascript:;">Next</a></li>
+			   <li className={this.state.firstClass}><a onClick={this.onFirst} href="javascript:;">First</a></li>
+               <li className={this.state.firstClass}><a onClick={this.onPrevious} href="javascript:;">Previous</a></li>
+               <li className={this.state.lastClass}><a onClick={this.onNext} href="javascript:;">Next</a></li>
 			   <li className={this.state.lastClass}><a onClick={this.onLast} href="javascript:;">Last</a></li>
             </ul>
             )

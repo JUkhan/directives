@@ -1,7 +1,8 @@
 
 
 import Pager from 'Scripts/Modules/jwtComponents/Pager.js';
-import SparkLine from 'Scripts/Modules/jwtComponents/SparkLine.js';
+import Row from 'Scripts/Modules/jwtComponents/Row.js';
+
 
 var JwtGrid = React.createClass({
   getInitialState:function(){
@@ -59,19 +60,7 @@ var JwtGrid = React.createClass({
             </div>
         )
   },
-  getLinks:function(row, col, index){
-	  	if(!angular.isArray(col.onClick)){
-			col.onClick=[col.onClick];
-		}
-		var linkText=col.linkText;
-		if(!linkText){
-			linkText=row[col.field];
-		}
-		if(!angular.isArray(linkText)){
-			linkText=[linkText];
-		}
-		return  col.onClick.map(function(fx, id){return <a key={id} className="link" onClick={fx.bind(null,row, index)} href="javascript:;">{linkText[id]}</a>})		
-  },
+ 
   onSearch:function(){  		
   		var searchText=this.refs.txtSearch.getDOMNode().value;
   		if(!searchText){
@@ -107,7 +96,7 @@ var JwtGrid = React.createClass({
         	<span style={{width:'220px'}} className={pos}>
 		      <input type="text" ref="txtSearch" onKeyDown={this.onSearchChane} className="form-control" placeholder="Search for..."/>
 		      <span className="input-group-btn">
-		        <button className="btn btn-default" onClick={this.onSearch} type="button">Go!</button>
+		        <button className="btn btn-default" onClick={this.onSearch} type="button"><span className="glyphicon glyphicon-search"></span> Search</button>
 		      </span>
 		    </span>		    
   		)
@@ -153,24 +142,7 @@ var JwtGrid = React.createClass({
                 <tbody>
                 {
                      this.state.data.map(function(row, index){
-                       return(
-                           <tr key={index}>
-                            {
-                                options.columns.map(function(col, id){
-                                    if(col.spark){
-                                        return <td key={id} style={col.style}><SparkLine data={row[col.field]} options={col.options}/></td>
-                                    }
-									if(angular.isFunction(col.render)){
-										return <td key={id}  dangerouslySetInnerHTML={{__html: col.render(row,index)}}></td>
-									}
-									if(col.onClick){										
-										return <td key={id} className={col.className} style={col.style}>{that.getLinks(row, col, index)}</td>
-									}
-                                    return <td key={id} className={col.className} style={col.style}>{row[col.field]}</td>
-                                })
-                            }
-                        </tr> 
-                        )
+                       		return <Row key={index} options={options} data={row} index={index}/>
                      })   
                         
                 }

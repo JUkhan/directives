@@ -11,3 +11,59 @@
   height: auto !important;
 }
 .jwt-grid .link{margin-right: 0.4em;}
+
+.tgrid{
+    
+    xwidth:100%;
+    display:table;
+    border: 1px solid #dddddd;
+    padding:0px;
+    margin:0px;
+    font-size: 12px;
+}
+
+.tgrid .level-1 .indented {
+	position : relative;
+	left     : 0;
+	cursor:pointer;
+}
+
+.tgrid .level-2 .indented {
+	position : relative;
+	left     : 20px;
+	cursor:pointer;
+}
+
+.tgrid .level-3 .indented {
+	position : relative;
+	left     : 40px;
+	cursor:pointer;
+}
+.tgrid .level-4 .indented {
+	position : relative;
+	left     : 60px;
+	cursor:pointer;
+}
+.tgrid .level-5 .indented {
+	position : relative;
+	left     : 80px;
+	cursor:pointer;
+}
+
+.tgrid>thead>tr>th, .tgrid>tbody>tr>th, .tgrid>tfoot>tr>th, .tgrid>thead>tr>td, .tgrid>tbody>tr>td, .tgrid>tfoot>tr>td {
+  border: 1px solid #dddddd;
+}
+.tgrid>thead>tr>th, .tgrid>tbody>tr>th, .tgrid>tfoot>tr>th, .tgrid>thead>tr>td, .tgrid>tbody>tr>td, .tgrid>tfoot>tr>td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+.tgrid .child-td{
+    padding:0;
+    border: none;
+    border-style: none;
+}
+.jwt-grid .tgrid thead tr td{
+   padding:0px; 
+}
