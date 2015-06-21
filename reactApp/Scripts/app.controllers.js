@@ -6,6 +6,7 @@ import associate from 'Scripts/Components/associate/associateCtrl.js';
 import chatWidget from 'Scripts/Components/chatWidget/chatWidgetCtrl.js';
 import reactWidget from 'Scripts/Components/reactWidget/reactWidgetCtrl.js';
 import test from 'Scripts/Components/test/testCtrl.js';
+import jwtFormGrid from 'Scripts/Components/jwtFormGrid/jwtFormGridCtrl.js';
 import root from 'Scripts/Layouts/root/rootCtrl.js';
 import layout2 from 'Scripts/Layouts/layout2/layout2Ctrl.js';
 
@@ -19,6 +20,7 @@ angular.module(moduleName,[])
 .controller('chatWidgetCtrl', chatWidget)
 .controller('reactWidgetCtrl', reactWidget)
 .controller('testCtrl', test)
+.controller('jwtFormGridCtrl', jwtFormGrid)
 .controller('rootCtrl', root)
 .controller('layout2Ctrl', layout2);
 

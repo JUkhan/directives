@@ -8,9 +8,10 @@ var JwtForm=React.createClass({
       return { options:{}}
     },
     handleSubmit:function(){
-        if(this.isValid()){
-            console.log(this.getFormData())
-
+        if(this.isValid()){           
+           if(typeof this.props.options.formSubmit !=='undefined' && typeof this.props.options.formSubmit==='function'){
+              this.props.options.formSubmit(this.getFormData(), this);
+            }
         }
     },
     refresh:function(){
@@ -34,9 +35,13 @@ var JwtForm=React.createClass({
           this.refs[field.name].getDOMNode().value=''
         }
       }.bind(this))
+      this.setState({errors:{}})
     },
     handleCancel:function(){
       this.hide();
+      if(typeof this.props.options.formCancel !=='undefined' && typeof this.props.options.formCancel==='function'){
+        this.props.options.formCancel(this);
+      }
     },
     show:function(){
       this.setState({isHide:false})
@@ -49,18 +54,19 @@ var JwtForm=React.createClass({
       var errors = {}
       this.props.options.fields.forEach(function(field) {
         if(!(field.type=='radio' || field.type=='checkbox' || field.type=='checkboxInlines')){
-          var value = this.refs[field.name].getDOMNode().value
-          if (!value) {
-            errors[field.name] = 'This field is required'
-          }
+          if(field.required){
+              var value = this.refs[field.name].getDOMNode().value
+              if (!value) {
+                errors[field.name] = 'This field is required'
+              }
+         }
       }
       }.bind(this))
-      this.setState({errors: errors})
 
+      this.setState({errors:errors})
       var isValid = true
       for (var error in errors) {
-        isValid = false
-        this.setState({errors:errors})
+        isValid = false        
         break
       }
       return isValid
@@ -87,6 +93,14 @@ var JwtForm=React.createClass({
           this.refs[field.name].getDOMNode().value=data[field.name]||''
         }
       }.bind(this))
+    },
+    setSelectOptions(fieldName, values){
+      this.props.options.fields.forEach(function(field) {
+          if(field.type==='select' && field.name===fieldName){
+              field.values=values
+          }
+         })
+      this.setProps()
     },
     getFormData: function() {      
       var data= this.__formData||{}
@@ -116,7 +130,7 @@ var JwtForm=React.createClass({
       var options=this.props.options;
       options.title=options.title||'Jwt Form';
       options.className=options.className||'default';
-       return <div className={$c('jwt-form',{hide:this.state.isHide})}>
+       return <div className={$class('jwt-form',{hide:this.state.isHide})}>
              <div className={'panel panel-'+options.className}>
                   <div className="panel-heading clearfix">
                        <h3 className="panel-title pull-left">{options.title}</h3>
@@ -126,14 +140,22 @@ var JwtForm=React.createClass({
                           {this.getFields(options)}
                       </div>
                    </div>
-                   <div className="panel-footer">
-                      <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
-                      <button type="button" className="btn btn-error" onClick={this.handleCancel}>Cancel</button>
-                  </div>
+                   <div className="panel-footer">  
+                        <div className="row"> 
+                            <div className="col-sm-6">
+                          <button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>Submit</button>
+                          </div>
+                          <div className="col-sm-6">
+                          <button type="button"  className="btn btn-info btn-block" onClick={this.handleCancel}>Cancel</button> 
+                          </div>
+                        </div>  
+                   </div>
+                  
              </div>
          </div>
     },
     getFields:function(options){
+      if(!options.fields) return
       var me=this;
         return options.fields.map((field, index)=>{
           me.__key=index;
@@ -176,17 +198,21 @@ var JwtForm=React.createClass({
   renderSelect: function(field) {
     var options=null;
     field.emptyOption= field.emptyOption||'--select--'
-    if(field.valueField && field.displayField){
-         options = field.values.map(function(value, index) {
-        return <option key={index+1} value={value[field.valueField]}>{value[field.displayField]}</option>
-      })
+    if(field.values && field.values.length>0){
+        if(field.valueField && field.displayField){
+             options = field.values.map(function(value, index) {
+            return <option key={index+1} value={value[field.valueField]}>{value[field.displayField]}</option>
+          })
+        }
+        else{
+           options = field.values.map(function(value, index) {
+            return <option key={index+1} value={value}>{value}</option>
+          })
+        }
+        options.unshift(<option key="0" value="">{field.emptyOption}</option>)
+    }else{
+      options=[<option key="0" value="">loading...</option>]
     }
-    else{
-       options = field.values.map(function(value, index) {
-        return <option key={index+1} value={value}>{value}</option>
-      })
-    }
-    options.unshift(<option key="0" value="">{field.emptyOption}</option>)
     return this.renderField(field.name, field.label,
       <select className="form-control" id={field.name} ref={field.name}>
         {options}
@@ -220,7 +246,7 @@ var JwtForm=React.createClass({
   },
   __key:1,
   renderField: function(id, label, field) {
-    return <div key={this.__key} className={$c('form-group', {'has-error': id in this.state.errors})}>
+    return <div key={this.__key} className={$class('form-group', {'has-error': id in this.state.errors})}>
       <label htmlFor={id} className="col-sm-4 control-label">{label}</label>
       <div className="col-sm-6">
         {field}
@@ -229,7 +255,7 @@ var JwtForm=React.createClass({
   }
 })
 
-// Utils
+// Utilsg
 
 var trim = function() {
   var TRIM_RE = /^\s+|\s+$/g
@@ -238,7 +264,7 @@ var trim = function() {
   }
 }()
 
-function $c(staticClassName, conditionalClassNames) {
+function $class(staticClassName, conditionalClassNames) {
   var classNames = []
   if (typeof conditionalClassNames == 'undefined') {
     conditionalClassNames = staticClassName

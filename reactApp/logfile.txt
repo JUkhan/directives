@@ -820,3 +820,35 @@ File name: 'E:\FFV\directives\reactApp\Scripts\Components\test\jwtComponents.jsd
 2015-06-20 09:47:23,908 [17] INFO  Jwtex.JwtExController - files found: 3
 2015-06-21 08:29:21,820 [42] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
 2015-06-21 08:29:22,060 [42] INFO  Jwtex.JwtExController - files found: 3
+2015-06-21 13:26:00,058 [39] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-06-21 13:26:00,128 [39] INFO  Jwtex.JwtExController - files found: 13
+2015-06-21 13:26:00,163 [35] ERROR Jwtex.JwtExController - System.IO.DirectoryNotFoundException: Could not find a part of the path 'E:\FFV\directives\reactApp\Scripts\Modules\'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Write(String path, String content)
+   at Jwtex.JwtExController.SaveFile(String mode, String directoryName, String fileName, String content)
+2015-06-21 14:35:10,354 [25] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-06-21 14:35:10,356 [25] INFO  Jwtex.JwtExController - files found: 3
+2015-06-21 15:02:33,983 [38] INFO  Jwtex.JwtExController - name:root, mode:Layouts
+2015-06-21 15:02:33,984 [38] INFO  Jwtex.JwtExController - files found: 2
+2015-06-21 15:03:39,730 [35] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
+2015-06-21 15:03:39,731 [35] INFO  Jwtex.JwtExController - files found: 3
+2015-06-21 15:03:39,740 [25] ERROR Jwtex.JwtExController - System.IO.DirectoryNotFoundException: Could not find a part of the path 'E:\FFV\directives\reactApp\Scripts\Components\'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   at jwt.CodeGen.JwtFile.Write(String path, String content)
+   at Jwtex.JwtExController.SaveFile(String mode, String directoryName, String fileName, String content)
+2015-06-21 15:15:14,367 [34] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-06-21 15:15:14,368 [34] INFO  Jwtex.JwtExController - files found: 3
+2015-06-21 15:53:44,994 [43] INFO  Jwtex.JwtExController - name:chatWidget, mode:Widgets
+2015-06-21 15:53:44,995 [43] INFO  Jwtex.JwtExController - files found: 3
+2015-06-21 15:53:48,175 [36] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
+2015-06-21 15:53:48,176 [36] INFO  Jwtex.JwtExController - files found: 3

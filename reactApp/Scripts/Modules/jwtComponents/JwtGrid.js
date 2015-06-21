@@ -6,7 +6,7 @@ import Row from 'Scripts/Modules/jwtComponents/Row.js';
 
 var JwtGrid = React.createClass({displayName: "JwtGrid",
   getInitialState:function(){
-		return {data:[], pageNo:1, dataStorage:null, isFilter:false}
+		return {data:null, pageNo:1, dataStorage:null, isFilter:false, hide:false}
 	},
 	 getDefaultProps:function(){
       return {options:{}}
@@ -33,7 +33,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
 	onSort:function(col){
 		if(col.asc===undefined){col.asc=true;}		
 		col.asc=!col.asc;		
-		this.setProps({data:this.props.data.sort(this.sortBy(col.field, col.asc))});
+		this.setState({data:this.state.data.sort(this.sortBy(col.field, col.asc))});
 		//this.forceUpdate();
 	},
   sortBy:function(field, reverse, primer){
@@ -64,15 +64,16 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
   onSearch:function(){  		
   		var searchText=this.refs.txtSearch.getDOMNode().value;
   		if(!searchText){
-  			this.state.isFilter=false;
-  			this.setProps({data:this.state.dataStorage});  			
+  			this.state.isFilter=false;  			
+  			this.setState({data:this.props.data||this.state.dataStorage});  			
   			return;
   		}
   		this.state.isFilter=true;
   		this.state.pageNo=1;
   		searchText=searchText.toLowerCase();  		 		
   		var colimns=this.props.options.columns, temp=[];
-  		this.setProps({data:this.state.dataStorage.filter(function(item, index){
+
+  		this.setState({data:this.state.dataStorage.filter(function(item, index){
   			var flag=false;
   			for(var col of colimns){
   				if(col.field && item[col.field]){
@@ -101,31 +102,64 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
 		    )		    
   		)
   },
+  setData:function(data){  		
+  		this.setState({data:data})
+  },
+  show:function(){
+  	this.setState({hide:false})
+  },
+  hide:function(){
+  	this.setState({hide:true})
+  },
+  getNewItem:function(){
+  		if(this.props.options.newItem){
+  			return React.createElement("a", {href: "javascript:;", className: "btn btn-link", onClick: this.props.options.newItem}, this.props.options.newItemText||'Add New Record')
+  		}
+  		return null
+  },
   render: function() {
     var options=this.props.options;     
-    if(!this.props.data){
+    if(!(this.props.data|| this.state.data)){
 		if(options.columns){
 			return this.getDataNotFound();
 		}
        return React.createElement("div", null, React.createElement("b", null, options.loadingText||'Data not found.')) 
     }
-	var len=this.props.data.length, pager=null, limit=options.limit||20;
-	if(options.filter && !this.state.isFilter){this.state.dataStorage=this.props.data;}	
-	if(len>limit){		
-		pager=React.createElement(Pager, {pos: options.pagerPos||'left', limit: limit, totalRow: len, onPageChange: this.onPageChange})
-		
-		this.state.data=this.props.data.slice(((this.state.pageNo-1)*limit),limit*this.state.pageNo);
+	var len=0, data, pager=null, limit=options.limit||20;
+
+	if(options.filter && !this.state.isFilter){this.state.dataStorage=this.props.data||this.state.data;}	
+	if(!this.state.data)
+	{
+		len=this.props.data.length
+		if(len>limit){		
+			pager=React.createElement(Pager, {pos: options.pagerPos||'left', limit: limit, totalRow: len, onPageChange: this.onPageChange})
+			this.state.data=this.props.data;
+			data=this.props.data.slice(((this.state.pageNo-1)*limit),limit*this.state.pageNo);
+
+		}
+		else {
+			this.state.data=this.props.data;	
+			data=this.state.data	
+		}
+	}else{
+		len=this.state.data.length
+		if(len>limit){		
+			pager=React.createElement(Pager, {pos: options.pagerPos||'left', limit: limit, totalRow: len, onPageChange: this.onPageChange})
+			
+			data=this.state.data.slice(((this.state.pageNo-1)*limit),limit*this.state.pageNo);
+		}
+		else{
+			data=this.state.data;
+		}		
 	}
-	else{
-		this.state.data=this.props.data;		
-	}
+
     if(!options.columns){
      this.componentWillMount()
     }
     var that=this;
     return (
-            React.createElement("div", {className: "jwt-grid table-responsive"}, 
-           	 React.createElement("div", {className: "well"}, pager, "  ", this.getFilter(options)), 
+            React.createElement("div", {className: $class('jwt-grid table-responsive', {hide:this.state.hide})}, 
+           	 React.createElement("div", {className: "well"}, pager, " ", this.getNewItem(), "  ", this.getFilter(options)), 
             React.createElement("table", {className: options.className}, 
                 React.createElement("thead", null, 
                     React.createElement("tr", null, 
@@ -141,7 +175,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
                 ), 
                 React.createElement("tbody", null, 
                 
-                     this.state.data.map(function(row, index){
+                     data.map(function(row, index){
                        		return React.createElement(Row, {key: index, options: options, data: row, index: index})
                      })   
                         
@@ -153,5 +187,21 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
         )
   }
 });
+
+function $class(staticClassName, conditionalClassNames) {
+  var classNames = []
+  if (typeof conditionalClassNames == 'undefined') {
+    conditionalClassNames = staticClassName
+  }
+  else {
+    classNames.push(staticClassName)
+  }
+  for (var className in conditionalClassNames) {
+    if (!!conditionalClassNames[className]) {
+      classNames.push(className)
+    }
+  }
+  return classNames.join(' ')
+}
 
 export default JwtGrid;

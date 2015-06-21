@@ -67,3 +67,8 @@
 .jwt-grid .tgrid thead tr td{
    padding:0px; 
 }
+.jwt-grid .well .btn-link{
+   padding: 5px; 
+  
+}
+

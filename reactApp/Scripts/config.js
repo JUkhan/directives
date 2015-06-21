@@ -12,5 +12,6 @@ export default function config(stateprovider, routeProvider){
 	stateprovider.state('root.chartNav',{url:'/chartNav',templateUrl:'Scripts/Components/chatWidget/chatWidget.html',controller:'chatWidgetCtrl as vm'});
 	stateprovider.state('root.reactNav',{url:'/reactNav',templateUrl:'Scripts/Components/reactWidget/reactWidget.html',controller:'reactWidgetCtrl as vm'});
 	stateprovider.state('root.layout2.testNav',{url:'/testNav',views:{'plceholder1':{templateUrl:'Scripts/Components/test/test.html',controller:'testCtrl as vm'},'plceholder2':{templateUrl:'Scripts/Components/home/home.html',controller:'homeCtrl as vm'}}});
+	stateprovider.state('root.jwtFormGrid',{url:'/jwtFormGrid',templateUrl:'Scripts/Components/jwtFormGrid/jwtFormGrid.html',controller:'jwtFormGridCtrl as vm'});
 }
 config.$inject=['$stateProvider', '$urlRouterProvider'];
