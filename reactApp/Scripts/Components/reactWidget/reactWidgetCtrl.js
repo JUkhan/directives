@@ -1,4 +1,6 @@
 import BaseCtrl from 'Scripts/Base/BaseCtrl.js';
+import JwtForm from 'Scripts/Modules/jwtComponents/JwtForm.js'
+
 
 const SVC=new WeakMap();
 class reactWidgetCtrl extends BaseCtrl
@@ -19,7 +21,21 @@ class reactWidgetCtrl extends BaseCtrl
 		};
 		this.loadData();
 		this.sparkLine();
-	
+		var fornOptions={
+		   
+		    fields:[
+		        {type:'text', name:'name', label:'Full Name'},
+		        {type:'textarea', name:'address', label:'Address'},
+		         {type:'select', name:'country', label:'Countries', values:['Bangladesh','Pakisthan']},
+		         {type:'radio', name:'gender', label:'Gender', values:['Male','Female'], defaultCheckedValue:'Male'},
+		         {type:'checkbox', name:'namex', label:'Gender'},
+		        ]
+		};
+	   this.form= React.render(React.createElement(JwtForm, { options:fornOptions}), document.getElementById('contactform'))
+	}
+	setFormData(){
+	    this.form.setFormData({name: "sdfsd", address: "sdfsdf", country: "Pakisthan", gender: 'Female',  namex: true});
+	    this.form.refresh()
 	}
 	loadData(){
 	    SVC.get(this).getData().success(res=>{console.log('done'); 

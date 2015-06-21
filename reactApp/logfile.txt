@@ -816,3 +816,7 @@ File name: 'E:\FFV\directives\reactApp\Scripts\Components\test\jwtComponents.jsd
 2015-06-17 08:11:16,115 [42] INFO  Jwtex.JwtExController - files found: 12
 2015-06-17 10:09:55,397 [42] INFO  Jwtex.JwtExController - name:test, mode:Widgets
 2015-06-17 10:09:55,986 [42] INFO  Jwtex.JwtExController - files found: 4
+2015-06-20 09:47:23,744 [17] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-06-20 09:47:23,908 [17] INFO  Jwtex.JwtExController - files found: 3
+2015-06-21 08:29:21,820 [42] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-06-21 08:29:22,060 [42] INFO  Jwtex.JwtExController - files found: 3
