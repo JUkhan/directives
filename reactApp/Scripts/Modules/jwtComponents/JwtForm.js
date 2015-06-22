@@ -93,6 +93,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
           this.refs[field.name].getDOMNode().value=data[field.name]||''
         }
       }.bind(this))
+      this.isValid()
     },
     setSelectOptions:function(fieldName, values){
       this.props.options.fields.forEach(function(field) {
@@ -100,7 +101,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
               field.values=values
           }
          })
-      this.setProps()
+      this.forceUpdate()
     },
     getFormData: function() {      
       var data= this.__formData||{}
@@ -141,13 +142,9 @@ var JwtForm=React.createClass({displayName: "JwtForm",
                       )
                    ), 
                    React.createElement("div", {className: "panel-footer"}, 
-                        React.createElement("div", {className: "row"}, 
-                            React.createElement("div", {className: "col-sm-6"}, 
-                          React.createElement("button", {type: "button", className: "btn btn-primary btn-block", onClick: this.handleSubmit}, "Submit")
-                          ), 
-                          React.createElement("div", {className: "col-sm-6"}, 
-                          React.createElement("button", {type: "button", className: "btn btn-info btn-block", onClick: this.handleCancel}, "Cancel")
-                          )
+                        React.createElement("div", {className: "text-center"}, 
+                          React.createElement("button", {type: "button", className: "btn btn-primary", onClick: this.handleSubmit}, "Submit"), 
+                          React.createElement("button", {type: "button", className: "btn btn-info", onClick: this.handleCancel}, "Cancel")
                         )
                    )
                   

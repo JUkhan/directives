@@ -113,7 +113,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
   },
   getNewItem:function(){
   		if(this.props.options.newItem){
-  			return React.createElement("a", {href: "javascript:;", className: "btn btn-link", onClick: this.props.options.newItem}, this.props.options.newItemText||'Add New Record')
+  			return React.createElement("a", {href: "javascript:;", className: "btn btn-link", title: this.props.options.newItemText||'Add New Record', onClick: this.props.options.newItem}, " ", React.createElement("span", {className: "glyphicon glyphicon-plus-sign"}), " ")
   		}
   		return null
   },

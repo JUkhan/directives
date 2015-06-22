@@ -41,10 +41,10 @@ var Pager=React.createClass({
     	var classNames='pagination pull-'+this.props.pos;
         return(
             React.createElement("ul", {className: classNames}, 
-			   React.createElement("li", {className: this.state.firstClass}, React.createElement("a", {onClick: this.onFirst, href: "javascript:;"}, "First")), 
-               React.createElement("li", {className: this.state.firstClass}, React.createElement("a", {onClick: this.onPrevious, href: "javascript:;"}, "Previous")), 
-               React.createElement("li", {className: this.state.lastClass}, React.createElement("a", {onClick: this.onNext, href: "javascript:;"}, "Next")), 
-			   React.createElement("li", {className: this.state.lastClass}, React.createElement("a", {onClick: this.onLast, href: "javascript:;"}, "Last"))
+			   React.createElement("li", {className: this.state.firstClass}, React.createElement("a", {onClick: this.onFirst, href: "javascript:;"}, React.createElement("span", {className: "glyphicon glyphicon-step-backward"}))), 
+               React.createElement("li", {className: this.state.firstClass}, React.createElement("a", {onClick: this.onPrevious, href: "javascript:;"}, React.createElement("span", {className: "glyphicon glyphicon-arrow-left"}))), 
+               React.createElement("li", {className: this.state.lastClass}, React.createElement("a", {onClick: this.onNext, href: "javascript:;"}, React.createElement("span", {className: "glyphicon glyphicon-arrow-right"}))), 
+			   React.createElement("li", {className: this.state.lastClass}, React.createElement("a", {onClick: this.onLast, href: "javascript:;"}, React.createElement("span", {className: "glyphicon glyphicon-step-forward"})))
             )
             )
     }

@@ -93,6 +93,7 @@ var JwtForm=React.createClass({
           this.refs[field.name].getDOMNode().value=data[field.name]||''
         }
       }.bind(this))
+      this.isValid()
     },
     setSelectOptions(fieldName, values){
       this.props.options.fields.forEach(function(field) {
@@ -100,7 +101,7 @@ var JwtForm=React.createClass({
               field.values=values
           }
          })
-      this.setProps()
+      this.forceUpdate()
     },
     getFormData: function() {      
       var data= this.__formData||{}
@@ -141,13 +142,9 @@ var JwtForm=React.createClass({
                       </div>
                    </div>
                    <div className="panel-footer">  
-                        <div className="row"> 
-                            <div className="col-sm-6">
-                          <button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>Submit</button>
-                          </div>
-                          <div className="col-sm-6">
-                          <button type="button"  className="btn btn-info btn-block" onClick={this.handleCancel}>Cancel</button> 
-                          </div>
+                        <div className="text-center">                            
+                          <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>                         
+                          <button type="button"  className="btn btn-info" onClick={this.handleCancel}>Cancel</button>                          
                         </div>  
                    </div>
                   
