@@ -22,17 +22,22 @@ class reactWidgetCtrl extends BaseCtrl
 		this.loadData();
 		this.sparkLine();
 		var fornOptions={
+		    laf:'primary',
 		   formSubmit:function(data){
 		       console.log(data)
 		   },
 		   formCancel:function(){
 		     alert('form canceled!')  
 		   },
+		   validate:data=>{
+		       //this.form.showMessage('Test error!')
+		       return true;
+		   },
 		    fields:[
 		        {type:'text', name:'name', label:'Full Name' , required:true},
 		        {type:'textarea', name:'address', label:'Address', required:true},
-		         {type:'select', name:'country', label:'Countries',  required:true , displayField:'name', valueField:'id'},
-		         {type:'radio', name:'gender', label:'Gender', values:['Male','Female'], defaultCheckedValue:'Male'},
+		         {type:'select', name:'country', label:'Countries',  required:true , displayField:'name', valueField:'id', onChange:(val, obj)=>{console.log(val, obj)}},
+		         {type:'radio', name:'gender', label:'Gender', labelList:['MALE','FEMALE'], values:['male','Female'], defaultCheckedValue:'male', required:true},
 		         {type:'checkbox', name:'namex', label:'Gender'},
 		        ]
 		};
@@ -43,6 +48,7 @@ class reactWidgetCtrl extends BaseCtrl
 	    this.form.setFormData({name: "sdfsd", address: "sdfsdf", country: "Pakisthan", gender: 'Female',  namex: true});
 	    this.form.refresh()
 	    this.form.setSelectOptions('country',[{id:1, name:'Ban'},{id:2, name:'NAK'}])
+	    this.form.show()
 	}
 
 	loadData(){

@@ -2,7 +2,7 @@
 
 var JwtForm=React.createClass({displayName: "JwtForm",
     getInitialState:function(){
-        return {errors: {},  isHide:false}
+        return {errors: {},  isHide:false, message:null}
     },
     getDefaultProps:function(){
       return { options:{}}
@@ -43,11 +43,14 @@ var JwtForm=React.createClass({displayName: "JwtForm",
         this.props.options.formCancel(this);
       }
     },
+    showMessage:function(msg){
+        this.setState({message:msg})
+    },
     show:function(){
       this.setState({isHide:false})
     },
     hide:function(){
-      this.setState({isHide:true})
+      this.setState({isHide:true, message:null})
     },
     isValid: function() {     
 
@@ -63,13 +66,15 @@ var JwtForm=React.createClass({displayName: "JwtForm",
       }
       }.bind(this))
 
-      this.setState({errors:errors})
+     
       var isValid = true
       for (var error in errors) {
         isValid = false        
         break
       }
-      return isValid
+      this.setState({errors:errors})
+     
+      return isValid && (this.props.options.validate? this.props.options.validate(this.getFormData()):true)
     },
     __formData:null,
     setFormData:function(data){
@@ -128,15 +133,22 @@ var JwtForm=React.createClass({displayName: "JwtForm",
       return data
     },
     render:function(){
-      var options=this.props.options;
+      var options=this.props.options, msg;
       options.title=options.title||'Jwt Form';
-      options.className=options.className||'default';
+      options.laf=options.laf||'default';
+      if(this.state.message){
+        msg=React.createElement("div", {className: "alert alert-warning", role: "alert"}, 
+            React.createElement("span", {className: "glyphicon glyphicon-exclamation-sign", "aria-hidden": "true"}), 
+           "  ", this.state.message
+          )
+      }
        return React.createElement("div", {className: $class('jwt-form',{hide:this.state.isHide})}, 
-             React.createElement("div", {className: 'panel panel-'+options.className}, 
+             React.createElement("div", {className: 'panel panel-'+options.laf}, 
                   React.createElement("div", {className: "panel-heading clearfix"}, 
                        React.createElement("h3", {className: "panel-title pull-left"}, options.title)
                   ), 
                    React.createElement("div", {className: "panel-body"}, 
+                      msg, 
                       React.createElement("div", {className: "form-horizontal"}, 
                           this.getFields(options)
                       )
@@ -150,6 +162,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
                   
              )
          )
+      
     },
     getFields:function(options){
       if(!options.fields) return
@@ -191,7 +204,12 @@ var JwtForm=React.createClass({displayName: "JwtForm",
         React.createElement("textarea", {className: "form-control", id: options.name, ref: options.name})
       )
     },
-
+    onChange:function(fieldName, e){
+      var fieldObj=this.props.options.fields.find(function(field){return field.name===fieldName;})
+      if(fieldObj){
+        fieldObj.onChange(e.target.value, e.target)
+      }
+    },
   renderSelect: function(field) {
     var options=null;
     field.emptyOption= field.emptyOption||'--select--'
@@ -210,6 +228,12 @@ var JwtForm=React.createClass({displayName: "JwtForm",
     }else{
       options=[React.createElement("option", {key: "0", value: ""}, "loading...")]
     }
+    if(field.onChange){
+      return this.renderField(field.name, field.label,
+      React.createElement("select", {className: "form-control", id: field.name, ref: field.name, onChange: this.onChange.bind(this, field.name)}, 
+        options
+      ))
+    }
     return this.renderField(field.name, field.label,
       React.createElement("select", {className: "form-control", id: field.name, ref: field.name}, 
         options
@@ -221,7 +245,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
       var defaultChecked = (value == options.defaultCheckedValue)
       return React.createElement("label", {key: index, className: "radio-inline"}, 
         React.createElement("input", {type: "radio", ref: options.name + value, name: options.name, value: value, defaultChecked: defaultChecked}), 
-        value
+        options.labelList? options.labelList[index] : capitalize(value)
       )
     })
     return this.renderField(options.name, options.label, radios)
@@ -236,7 +260,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
       var defaultChecked = (value == options.defaultCheckedValue)
       return React.createElement("label", {key: index, className: "radio-inline"}, 
         React.createElement("input", {type: "checkbox", ref: options.name + value, name: options.name+value, value: value, defaultChecked: defaultChecked}), 
-        value
+        options.labelList? options.labelList[index] : capitalize(value)
       )
     })
     return this.renderField(options.name, options.label, radios)
@@ -260,7 +284,9 @@ var trim = function() {
     return string.replace(TRIM_RE, '')
   }
 }()
-
+function capitalize(value){
+    return value[0].toUpperCase()+value.substring(1);
+}
 function $class(staticClassName, conditionalClassNames) {
   var classNames = []
   if (typeof conditionalClassNames == 'undefined') {

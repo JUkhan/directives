@@ -852,3 +852,19 @@ File name: 'E:\FFV\directives\reactApp\Scripts\Components\test\jwtComponents.jsd
 2015-06-21 15:53:44,995 [43] INFO  Jwtex.JwtExController - files found: 3
 2015-06-21 15:53:48,175 [36] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
 2015-06-21 15:53:48,176 [36] INFO  Jwtex.JwtExController - files found: 3
+2015-06-23 17:48:29,957 [9] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
+2015-06-23 17:48:30,456 [9] INFO  Jwtex.JwtExController - files found: 3
+2015-06-23 18:06:11,132 [50] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-06-23 18:06:11,133 [50] INFO  Jwtex.JwtExController - files found: 3
+2015-06-23 18:08:31,627 [60] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
+2015-06-23 18:08:31,628 [60] INFO  Jwtex.JwtExController - files found: 3
+2015-06-23 18:11:47,185 [57] INFO  Jwtex.JwtExController - name:jwtComponents, mode:Modules
+2015-06-23 18:11:47,186 [57] INFO  Jwtex.JwtExController - files found: 11
+2015-06-23 18:29:17,637 [117] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
+2015-06-23 18:29:17,638 [117] INFO  Jwtex.JwtExController - files found: 3
+2015-06-24 17:23:58,219 [9] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
+2015-06-24 17:23:58,453 [9] INFO  Jwtex.JwtExController - files found: 3
+2015-06-24 17:44:14,644 [108] INFO  Jwtex.JwtExController - name:reactWidget, mode:Widgets
+2015-06-24 17:44:14,645 [108] INFO  Jwtex.JwtExController - files found: 3
+2015-06-24 21:54:33,363 [369] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
+2015-06-24 21:54:33,467 [369] INFO  Jwtex.JwtExController - files found: 3

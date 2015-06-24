@@ -2,7 +2,7 @@
 
 var JwtForm=React.createClass({
     getInitialState:function(){
-        return {errors: {},  isHide:false}
+        return {errors: {},  isHide:false, message:null}
     },
     getDefaultProps:function(){
       return { options:{}}
@@ -43,11 +43,14 @@ var JwtForm=React.createClass({
         this.props.options.formCancel(this);
       }
     },
+    showMessage:function(msg){
+        this.setState({message:msg})
+    },
     show:function(){
       this.setState({isHide:false})
     },
     hide:function(){
-      this.setState({isHide:true})
+      this.setState({isHide:true, message:null})
     },
     isValid: function() {     
 
@@ -63,13 +66,15 @@ var JwtForm=React.createClass({
       }
       }.bind(this))
 
-      this.setState({errors:errors})
+     
       var isValid = true
       for (var error in errors) {
         isValid = false        
         break
       }
-      return isValid
+      this.setState({errors:errors})
+     
+      return isValid && (this.props.options.validate? this.props.options.validate(this.getFormData()):true)
     },
     __formData:null,
     setFormData:function(data){
@@ -128,15 +133,22 @@ var JwtForm=React.createClass({
       return data
     },
     render:function(){
-      var options=this.props.options;
+      var options=this.props.options, msg;
       options.title=options.title||'Jwt Form';
-      options.className=options.className||'default';
+      options.laf=options.laf||'default';
+      if(this.state.message){
+        msg=<div className="alert alert-warning" role="alert">
+            <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>            
+           &nbsp; {this.state.message}
+          </div>
+      }
        return <div className={$class('jwt-form',{hide:this.state.isHide})}>
-             <div className={'panel panel-'+options.className}>
+             <div className={'panel panel-'+options.laf}>
                   <div className="panel-heading clearfix">
                        <h3 className="panel-title pull-left">{options.title}</h3>
                   </div>
                    <div className="panel-body">
+                      {msg}
                       <div className="form-horizontal">
                           {this.getFields(options)}
                       </div>
@@ -150,6 +162,7 @@ var JwtForm=React.createClass({
                   
              </div>
          </div>
+      
     },
     getFields:function(options){
       if(!options.fields) return
@@ -191,7 +204,12 @@ var JwtForm=React.createClass({
         <textarea className="form-control" id={options.name} ref={options.name}/>
       )
     },
-
+    onChange:function(fieldName, e){
+      var fieldObj=this.props.options.fields.find(field=>field.name===fieldName)
+      if(fieldObj){
+        fieldObj.onChange(e.target.value, e.target)
+      }
+    },
   renderSelect: function(field) {
     var options=null;
     field.emptyOption= field.emptyOption||'--select--'
@@ -210,6 +228,12 @@ var JwtForm=React.createClass({
     }else{
       options=[<option key="0" value="">loading...</option>]
     }
+    if(field.onChange){
+      return this.renderField(field.name, field.label,
+      <select className="form-control" id={field.name} ref={field.name} onChange={this.onChange.bind(this, field.name)}>
+        {options}
+      </select>)
+    }
     return this.renderField(field.name, field.label,
       <select className="form-control" id={field.name} ref={field.name}>
         {options}
@@ -221,7 +245,7 @@ var JwtForm=React.createClass({
       var defaultChecked = (value == options.defaultCheckedValue)
       return <label key={index} className="radio-inline">
         <input type="radio" ref={options.name + value} name={options.name} value={value} defaultChecked={defaultChecked}/>
-        {value}
+        {options.labelList? options.labelList[index] : capitalize(value)}
       </label>
     })
     return this.renderField(options.name, options.label, radios)
@@ -236,7 +260,7 @@ var JwtForm=React.createClass({
       var defaultChecked = (value == options.defaultCheckedValue)
       return <label key={index} className="radio-inline">
         <input type="checkbox" ref={options.name + value} name={options.name+value} value={value} defaultChecked={defaultChecked}/>
-        {value}
+        {options.labelList? options.labelList[index] : capitalize(value)}
       </label>
     })
     return this.renderField(options.name, options.label, radios)
@@ -260,7 +284,9 @@ var trim = function() {
     return string.replace(TRIM_RE, '')
   }
 }()
-
+function capitalize(value){
+    return value[0].toUpperCase()+value.substring(1);
+}
 function $class(staticClassName, conditionalClassNames) {
   var classNames = []
   if (typeof conditionalClassNames == 'undefined') {

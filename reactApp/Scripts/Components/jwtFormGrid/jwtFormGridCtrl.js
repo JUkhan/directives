@@ -14,7 +14,7 @@ class jwtFormGridCtrl extends BaseCtrl
 	prepareFormGrid(){
 	    var me=this
 	    var grid={
-	         limit:1, loadingText:'loading...', filter:true, newItem:function(){me.formGrid.showForm(); me.formGrid.formRefresh(); },newItemText:'Add New Item',
+	         limit:1, loadingText:'loading...', filter:true, newItem:function(){me.formGrid.showFormWithRefresh(); },newItemText:'Add New Item',
 		    columns:[
 		      {field:'Action',  linkText:['Edit','Remove'], onClick:[row=>{ this.formGrid.setFormData(row) },row=>{alert(row.Country+'add');}]}, 
 		      {field:'Name', sort:true},
@@ -29,6 +29,7 @@ class jwtFormGridCtrl extends BaseCtrl
 	        },
 	        formCancel:function(){
 	            me.formGrid.showGrid()
+	            me.formGrid.showMessage('Form has been closed successfully!.')
 	        },
 	        fields:[
 	            {type:'text', name:'Name', label:'Name', required:true},{type:'text',  label:'Country', name:'Country', required:true},{type:'text',  label:'Age', name:'Age', required:true}
@@ -40,6 +41,7 @@ class jwtFormGridCtrl extends BaseCtrl
 	loadData(){
 	    var data=[{Name:'Jasim', Country:'Bangladesh', Age:35}, {Name:'Abdulla', Country:'Turkey', Age:25}]
 	    this.formGrid.setGridData(data)
+	    this.formGrid.showMessage('Grid data has been loaded.')
 	}
 }
 jwtFormGridCtrl.$inject=['$scope', 'jwtFormGridSvc'];
