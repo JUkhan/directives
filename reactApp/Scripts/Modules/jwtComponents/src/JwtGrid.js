@@ -30,11 +30,36 @@ var JwtGrid = React.createClass({
   onPageChange:function(pageNo){  	
 	this.setState({pageNo:pageNo});
   }, 
-	onSort:function(col){
-		if(col.asc===undefined){col.asc=true;}		
-		col.asc=!col.asc;		
-		this.setState({data:this.state.data.sort(this.sortBy(col.field, col.asc))});
-		//this.forceUpdate();
+  previousTH : null,
+  syncSortUI:function(th, col) {
+       
+        if (this.previousTH && th !=this.previousTH) {
+            $(this.previousTH).find('div span').removeClass('glyphicon-triangle-top glyphicon-triangle-bottom');
+            $(th).find('div span').addClass('glyphicon-triangle-top');
+            this.setState({data:this.state.data.sort(this.sortBy(col.field, false))});
+        } else {
+            var span = $(th).find('div span');
+            if (span.hasClass('glyphicon-triangle-top')) {
+                span.removeClass('glyphicon-triangle-top').addClass('glyphicon-triangle-bottom');
+                this.setState({data:this.state.data.sort(this.sortBy(col.field, true))});
+            }
+            else if (span.hasClass('glyphicon-triangle-bottom')) {
+                span.removeClass('glyphicon-triangle-bottom').addClass('glyphicon-triangle-top');
+                this.setState({data:this.state.data.sort(this.sortBy(col.field, false))});
+            }
+            else {
+                span.addClass('glyphicon-triangle-top');
+                this.setState({data:this.state.data.sort(this.sortBy(col.field, false))});
+            }
+        }
+        this.previousTH = th;
+    },
+  onSort:function(col, e){		
+		if($(e.target).hasClass('sort')){
+			this.syncSortUI(e.target, col);
+		}else{
+			this.syncSortUI($(e.target).parents('th')[0], col);
+		}
 	},
   sortBy:function(field, reverse, primer){
    var key = primer ? function(x) {return primer(x[field])} : function(x) {return x[field]};
@@ -166,7 +191,10 @@ var JwtGrid = React.createClass({
                     {
                         options.columns.map(function(col, index){
 							if(col.sort){
-								return  <th key={index}><span onClick={that.onSort.bind(that, col)} style={{cursor:'pointer'}}>{col.displayName||col.field}</span></th>
+								return  <th key={index} onClick={that.onSort.bind(that, col)} className="sort">
+								{col.displayName||col.field}
+								<div className="pull-right"><span className="glyphicon" aria-hidden="true"></span></div>
+								</th>
 							}
                             return <th key={index}>{col.displayName||col.field}</th>
                         })

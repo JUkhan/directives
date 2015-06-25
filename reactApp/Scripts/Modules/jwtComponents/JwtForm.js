@@ -155,8 +155,11 @@ var JwtForm=React.createClass({displayName: "JwtForm",
                    ), 
                    React.createElement("div", {className: "panel-footer"}, 
                         React.createElement("div", {className: "text-center"}, 
-                          React.createElement("button", {type: "button", className: "btn btn-primary", onClick: this.handleSubmit}, "Submit"), 
-                          React.createElement("button", {type: "button", className: "btn btn-info", onClick: this.handleCancel}, "Cancel")
+                            React.createElement("div", {classNames: "btn-group"}, 
+                              React.createElement("button", {type: "button", className: "btn btn-primary", onClick: this.handleSubmit}, "Submit"), 
+                                  " ",         
+                              React.createElement("button", {type: "button", className: "btn btn-info", onClick: this.handleCancel}, "Cancel")
+                            )
                         )
                    )
                   
