@@ -11,7 +11,9 @@
   height: auto !important;
 }
 .jwt-grid .link{margin-right: 0.4em;}
-
+.jwt-grid tr td .btn{
+    padding:0 4px;
+}
 .tgrid{
     
     xwidth:100%;

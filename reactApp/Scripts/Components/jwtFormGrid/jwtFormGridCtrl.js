@@ -14,9 +14,16 @@ class jwtFormGridCtrl extends BaseCtrl
 	prepareFormGrid(){
 	    var me=this
 	    var grid={
+	        checkList:(data)=>{ console.log(data); },
+	       buttons:[
+	           {text:'Hello', onClick:()=>{alert('i am hello')}},
+	            {text:'Bangladesh', className:'btn btn-success', onClick:()=>{alert('i am bangladesh')}},
+	            {icon:'glyphicon glyphicon-plus-sign', onClick:()=>{me.formGrid.showFormWithRefresh();}},
+	            { text:'Droon', className:'btn btn-primary', title:'Droon attack on israil', icon:'glyphicon glyphicon-plus-sign', onClick:()=>{alert('i am plus sign')}}
+	           ],
 	         limit:1, loadingText:'loading...', filter:true, newItem:function(){me.formGrid.showFormWithRefresh(); },newItemText:'Add New Item',
 		    columns:[
-		      {field:'Action',  linkText:['Edit','Remove'], onClick:[row=>{ this.formGrid.setFormData(row) },row=>{alert(row.Country+'add');}]}, 
+		      {field:'Action', icon:['glyphicon glyphicon-ok','glyphicon glyphicon-remove'],  linkText:['Edit','Remove'], onClick:[row=>{ this.formGrid.setFormData(row) },row=>{alert(row.Country+'add');}]}, 
 		      {field:'Name', sort:true},
 		      {field:'Country', sort:true} ,
 		      {field:'Age', sort:true, style:{color:'red'}}
@@ -24,6 +31,7 @@ class jwtFormGridCtrl extends BaseCtrl
 		        ]
 	    }
 	    var form={
+	        fileUpload:true,
 	        formSubmit:function(data){
 	          console.log(data)  
 	        },

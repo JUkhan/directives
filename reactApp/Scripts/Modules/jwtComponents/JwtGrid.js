@@ -142,6 +142,48 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
   		}
   		return null
   },
+  checkAll:function(e){
+  	for(var row of this.state.data){
+  		 row[this.props.options.checkField]=e.target.checked;
+  	}
+  	this.props.options.checkList(e.target.checked?this.state.data:[]);
+  	this.setState({data:this.state.data});
+  },
+  rowCheck:function(){
+  	var res=[];
+  	for(var row of this.state.data){
+  		if(!!row[this.props.options.checkField]){
+  			res.push(row);
+  		}
+  	}
+  	this.refs.allChk.getDOMNode().checked=res.length===this.state.data.length;
+  	this.props.options.checkList(res);
+  },
+  getButtons:function(){
+  		if(!this.props.options.buttons){return null;}
+  		return  React.createElement("div", {className: "btn-group"}, 
+        
+        	this.props.options.buttons.map(function(btn, index){
+
+        		if(btn.text && btn.className && btn.icon){
+        			return React.createElement("button", {key: index, type: "button", title: btn.title||'You missed the title', className: btn.className, onClick: btn.onClick}, React.createElement("span", {className: btn.icon}), " ", btn.text)
+        		}
+        		else if(btn.text && btn.className){
+        			return React.createElement("button", {key: index, type: "button", title: btn.title||'You missed the title', className: btn.className, onClick: btn.onClick}, btn.text)
+        		}
+        		else if(btn.icon && btn.className){
+        			return React.createElement("button", {key: index, type: "button", className: btn.className, title: btn.title||'You missed the title', className: btn.className, onClick: btn.onClick}, React.createElement("span", {className: btn.icon}))
+        		}
+        		else if(btn.icon){
+        			return React.createElement("button", {key: index, type: "button", className: "btn btn-default", title: btn.title||'You missed the title', onClick: btn.onClick}, React.createElement("span", {className: btn.icon}))
+        		}
+        		else{
+        			return React.createElement("button", {key: index, type: "button", title: btn.title||'You missed the title', className: "btn btn-primary", onClick: btn.onClick}, btn.text)
+        		}
+        	})
+        
+    	)
+  },
   render: function() {
     var options=this.props.options;     
     if(!(this.props.data|| this.state.data)){
@@ -180,15 +222,22 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
 
     if(!options.columns){
      this.componentWillMount()
-    }
-    var that=this;
+    }   
+    var that=this, headCheck=null;
+    if(options.checkList){
+    	options.checkField=options.checkField||'_chk_';
+          headCheck=React.createElement("th", {style: {width:'20px'}}, " ", React.createElement("input", {className: "chk-head", ref: "allChk", type: "checkbox", onChange: this.checkAll}), " ")  				
+    } 
+    
     return (
             React.createElement("div", {className: $class('jwt-grid table-responsive', {hide:this.state.hide})}, 
-           	 React.createElement("div", {className: "well"}, pager, " ", this.getNewItem(), "  ", this.getFilter(options)), 
+           	 React.createElement("div", {className: "well"}, pager, " ", this.getNewItem(), " ", this.getButtons(), " ", this.getFilter(options)), 
             React.createElement("table", {className: options.className}, 
                 React.createElement("thead", null, 
                     React.createElement("tr", null, 
                     
+                    	headCheck 
+                    	,
                         options.columns.map(function(col, index){
 							if(col.sort){
 								return  React.createElement("th", {key: index, onClick: that.onSort.bind(that, col), className: "sort"}, 
@@ -204,7 +253,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
                 React.createElement("tbody", null, 
                 
                      data.map(function(row, index){
-                       		return React.createElement(Row, {key: index, options: options, data: row, index: index})
+                       		return React.createElement(Row, {key: index, rowCheck: that.rowCheck, options: options, data: row, index: index})
                      })   
                         
                 

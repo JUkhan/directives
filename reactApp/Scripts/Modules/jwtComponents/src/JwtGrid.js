@@ -142,6 +142,48 @@ var JwtGrid = React.createClass({
   		}
   		return null
   },
+  checkAll:function(e){
+  	for(var row of this.state.data){
+  		 row[this.props.options.checkField]=e.target.checked;
+  	}
+  	this.props.options.checkList(e.target.checked?this.state.data:[]);
+  	this.setState({data:this.state.data});
+  },
+  rowCheck:function(){
+  	var res=[];
+  	for(var row of this.state.data){
+  		if(!!row[this.props.options.checkField]){
+  			res.push(row);
+  		}
+  	}
+  	this.refs.allChk.getDOMNode().checked=res.length===this.state.data.length;
+  	this.props.options.checkList(res);
+  },
+  getButtons:function(){
+  		if(!this.props.options.buttons){return null;}
+  		return  <div className="btn-group">
+        {
+        	this.props.options.buttons.map(function(btn, index){
+
+        		if(btn.text && btn.className && btn.icon){
+        			return <button key={index} type="button" title={btn.title||'You missed the title'} className={btn.className} onClick={btn.onClick}><span className={btn.icon}></span> {btn.text}</button>
+        		}
+        		else if(btn.text && btn.className){
+        			return <button key={index} type="button" title={btn.title||'You missed the title'} className={btn.className} onClick={btn.onClick}>{btn.text}</button>
+        		}
+        		else if(btn.icon && btn.className){
+        			return <button key={index} type="button" className={btn.className} title={btn.title||'You missed the title'} className={btn.className} onClick={btn.onClick}><span className={btn.icon}></span></button>
+        		}
+        		else if(btn.icon){
+        			return <button key={index} type="button" className="btn btn-default" title={btn.title||'You missed the title'}  onClick={btn.onClick}><span className={btn.icon}></span></button>
+        		}
+        		else{
+        			return <button key={index} type="button" title={btn.title||'You missed the title'} className="btn btn-primary" onClick={btn.onClick}>{btn.text}</button>
+        		}
+        	})
+        }
+    	</div>
+  },
   render: function() {
     var options=this.props.options;     
     if(!(this.props.data|| this.state.data)){
@@ -180,15 +222,22 @@ var JwtGrid = React.createClass({
 
     if(!options.columns){
      this.componentWillMount()
-    }
-    var that=this;
+    }   
+    var that=this, headCheck=null;
+    if(options.checkList){
+    	options.checkField=options.checkField||'_chk_';
+          headCheck=<th style={{width:'20px'}}> <input className="chk-head" ref="allChk" type="checkbox" onChange={this.checkAll} /> </th>  				
+    } 
+    
     return (
             <div className={$class('jwt-grid table-responsive', {hide:this.state.hide})}>
-           	 <div className="well">{pager} {this.getNewItem()}  {this.getFilter(options)}</div>
+           	 <div className="well">{pager} {this.getNewItem()} {this.getButtons()} {this.getFilter(options)}</div>
             <table className={options.className}>
                 <thead>
                     <tr>
                     {
+                    	headCheck 
+                    	,
                         options.columns.map(function(col, index){
 							if(col.sort){
 								return  <th key={index} onClick={that.onSort.bind(that, col)} className="sort">
@@ -204,7 +253,7 @@ var JwtGrid = React.createClass({
                 <tbody>
                 {
                      data.map(function(row, index){
-                       		return <Row key={index} options={options} data={row} index={index}/>
+                       		return <Row key={index} rowCheck={that.rowCheck} options={options} data={row} index={index}/>
                      })   
                         
                 }

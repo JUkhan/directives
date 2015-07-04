@@ -1,5 +1,4 @@
 
-
 var JwtForm=React.createClass({displayName: "JwtForm",
     getInitialState:function(){
         return {errors: {},  isHide:false, message:null}
@@ -74,7 +73,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
       }
       this.setState({errors:errors})
      
-      return isValid && (this.props.options.validate? this.props.options.validate(this.getFormData()):true)
+      return isValid && (this.props.options.validate? this.props.options.validate(this.getFormData(), this):true)
     },
     __formData:null,
     setFormData:function(data){
@@ -132,6 +131,11 @@ var JwtForm=React.createClass({displayName: "JwtForm",
       }.bind(this))
       return data
     },
+    submit:function(options){
+        options.type='POST';
+        $(this.refs.form.getDOMNode()).ajaxForm(options);
+        $(this.refs.form.getDOMNode()).submit();
+    },
     render:function(){
       var options=this.props.options, msg;
       options.title=options.title||'Jwt Form';
@@ -149,7 +153,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
                   ), 
                    React.createElement("div", {className: "panel-body"}, 
                       msg, 
-                      React.createElement("div", {className: "form-horizontal"}, 
+                      React.createElement("form", {ref: "form", className: "form-horizontal", encType: options.fileUpload?'multipart/form-data':null}, 
                           this.getFields(options)
                       )
                    ), 
@@ -191,10 +195,19 @@ var JwtForm=React.createClass({displayName: "JwtForm",
               break;
               case 'checkboxInlines':
                 return !field.hide && me.renderCheckboxInlines(field)
+              break;              
+              case 'file':
+                return !field.hide && me.renderFileInput(field)
               break;
            }   
            return null
         })
+    },
+   
+    renderFileInput: function(options) {
+      return this.renderField(options.name, options.label,
+        React.createElement("input", {type: "file", className: "form-control", name: options.name, id: options.name, ref: options.name})
+      )
     },
     renderTextInput: function(options) {
       return this.renderField(options.name, options.label,

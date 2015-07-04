@@ -10,6 +10,9 @@ class reactWidgetCtrl extends BaseCtrl
 		SVC.set(this, svc);
 		this.title='reactWidget';
 		this.options={
+		    checkList:(data)=>{
+		        console.log(data);
+		    },
 		   limit:10, loadingText:'loading...', filter:true,
 		    columns:[
 		      {field:'Action',  linkText:['Edit','Add'], onClick:[row=>{alert(row.Country+'edit');},row=>{alert(row.Country+'add');}]}, 
