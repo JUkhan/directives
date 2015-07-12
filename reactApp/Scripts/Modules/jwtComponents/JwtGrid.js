@@ -96,18 +96,31 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
   		this.state.isFilter=true;
   		this.state.pageNo=1;
   		searchText=searchText.toLowerCase();  		 		
-  		var colimns=this.props.options.columns, temp=[];
-
+  		var columns=this.props.options.columns, temp=[];
+  		//ES6
   		this.setState({data:this.state.dataStorage.filter(function(item, index){
   			var flag=false;
-  			for(var col of colimns){
-  				if(col.field && item[col.field]){
-  					var txt=item[col.field].toString().toLowerCase();
-  					flag =flag || txt.indexOf(searchText)!==-1;
+  			for(var col of columns){
+  				if(col.field && item[col.field]){  					
+  					flag =flag || item[col.field].toString().toLowerCase().indexOf(searchText)!==-1;
   				}
   			}
   			return flag;
   		})}); 
+
+		//ES5
+		/*this.state.dataStorage.forEach(function(item){
+			var flag=false;
+			columns.forEach(function(col){
+				if(col.field && item[col.field]){  					
+  					flag =flag || item[col.field].toString().toLowerCase().indexOf(searchText)!==-1;
+  				}
+			});
+			if(flag){
+				temp.push(item);
+			}
+		});
+		this.setState({data:temp});*/
   },
   onSearchChane:function(event){
   		if(event.keyCode==13){this.onSearch();return;}

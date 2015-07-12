@@ -27,6 +27,10 @@ var JwtFormGrid = React.createClass({displayName: "JwtFormGrid",
        this.refs.form.setSelectOptions(fieldName, values)
        return this
   },
+  setMultiSelectData:function(fieldName, values){
+       this.refs.form.setMultiSelectData(fieldName, values)
+       return this
+  },
   formRefresh:function(){
       this.refs.form.refresh()
       return this

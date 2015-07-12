@@ -1,3 +1,4 @@
+import MultiSelect from 'Scripts/Modules/jwtComponents/MultiSelect.js';
 
 var JwtForm=React.createClass({
     getInitialState:function(){
@@ -16,22 +17,27 @@ var JwtForm=React.createClass({
     refresh:function(){
       this.__formData=null;
        this.props.options.fields.forEach(function(field) {
-        if(field.type==='radio'){          
-          field.values.forEach(function(value){
-               this.refs[field.name+value].getDOMNode().checked=false               
-            
-          }.bind(this))
-        }
-        else if(field.type==='checkbox'){
-           this.refs[field.name].getDOMNode().checked = false             
-        }
-        else if(field.type==='checkboxInlines'){
-            field.values.forEach(function(value){           
-                 this.refs[field.name+value].getDOMNode().checked = false         
-          }.bind(this))            
-        }        
-        else{
-          this.refs[field.name].getDOMNode().value=''
+         switch(field.type.toLowerCase()){
+             case 'radio':        
+                field.values.forEach(function(value){
+                     this.refs[field.name+value].getDOMNode().checked=false               
+                  
+                }.bind(this))
+              break;
+              case 'checkbox':
+                 this.refs[field.name].getDOMNode().checked = false             
+              break;
+              case 'checkboxinlines':
+                  field.values.forEach(function(value){           
+                       this.refs[field.name+value].getDOMNode().checked = false         
+                }.bind(this))            
+              break;
+              case 'multiselect':
+                this.refs[field.name].setValue('');
+               break;        
+              default:
+                this.refs[field.name].getDOMNode().value=''
+              break;
         }
       }.bind(this))
       this.setState({errors:{}})
@@ -55,7 +61,13 @@ var JwtForm=React.createClass({
 
       var errors = {}
       this.props.options.fields.forEach(function(field) {
-        if(!(field.type=='radio' || field.type=='checkbox' || field.type=='checkboxInlines')){
+
+        if(field.type.toLowerCase()=='multiselect' && field.required){        
+              if (!this.refs[field.name].getValue()) {
+                errors[field.name] = 'This field is required'
+              }        
+        }
+        else if(!(field.type.toLowerCase()=='radio' || field.type.toLowerCase()=='checkbox' || field.type.toLowerCase()=='checkboxinlines')){
           if(field.required){
               var value = this.refs[field.name].getDOMNode().value
               if (!value) {
@@ -79,54 +91,67 @@ var JwtForm=React.createClass({
     setFormData:function(data){
       this.__formData=data;
       this.props.options.fields.forEach(function(field) {
-        if(field.type==='radio'){          
-          field.values.forEach(function(value){
-               this.refs[field.name+value].getDOMNode().checked=(data[field.name]===value)                 
-            
-          }.bind(this))
-        }
-        else if(field.type==='checkbox'){
-           this.refs[field.name].getDOMNode().checked = !!data[field.name]             
-        }
-        else if(field.type==='checkboxInlines'){
-            field.values.forEach(function(value){           
-                 this.refs[field.name+value].getDOMNode().checked = !!data[value]         
-          }.bind(this))            
-        }        
-        else{
-          this.refs[field.name].getDOMNode().value=data[field.name]||''
+        switch(field.type.toLowerCase()){
+              case 'radio':        
+                field.values.forEach(function(value){
+                     this.refs[field.name+value].getDOMNode().checked=(data[field.name]===value)                 
+                  
+                }.bind(this))
+              break;
+              case 'checkbox':
+                 this.refs[field.name].getDOMNode().checked = !!data[field.name]             
+              break;
+              case 'checkboxInlines':
+                  field.values.forEach(function(value){           
+                       this.refs[field.name+value].getDOMNode().checked = !!data[value]         
+                }.bind(this))            
+              break;
+              case 'multiSelect':
+                 this.refs[field.name].setValue(data[field.name]);             
+              break;        
+              default:
+                this.refs[field.name].getDOMNode().value=data[field.name]||''
+              break
         }
       }.bind(this))
       this.isValid()
     },
-    setSelectOptions(fieldName, values){
+    setSelectOptions:function(fieldName, values){
       this.props.options.fields.forEach(function(field) {
-          if(field.type==='select' && field.name===fieldName){
+          if(field.type.toLowerCase()==='select' && field.name===fieldName){
               field.values=values
           }
          })
       this.forceUpdate()
     },
+    setMultiSelectData:function(fieldName, values){
+        this.refs[fieldName].setData(values);
+    },
     getFormData: function() {      
       var data= this.__formData||{}
        this.props.options.fields.forEach(function(field) {
-        if(field.type==='radio'){          
-          field.values.forEach(function(value){
-            if(this.refs[field.name+value].getDOMNode().checked){
-                 data[field.name]=value
-            }
-          }.bind(this))
-        }
-        else if(field.type==='checkbox'){
-           data[field.name]=this.refs[field.name].getDOMNode().checked              
-        }
-        else if(field.type==='checkboxInlines'){
-            field.values.forEach(function(value){           
-                 data[value]=this.refs[field.name+value].getDOMNode().checked           
-          }.bind(this))            
-        }        
-        else{
-          data[field.name]=this.refs[field.name].getDOMNode().value
+        switch(field.type.toLowerCase()){
+           case 'radio':       
+              field.values.forEach(function(value){
+                if(this.refs[field.name+value].getDOMNode().checked){
+                     data[field.name]=value
+                }
+              }.bind(this))
+           break;
+           case 'checkbox':
+               data[field.name]=this.refs[field.name].getDOMNode().checked              
+           break;
+           case 'checkboxinlines':
+                field.values.forEach(function(value){           
+                     data[value]=this.refs[field.name+value].getDOMNode().checked           
+              }.bind(this))            
+           break;
+           case 'multiselect':
+              data[field.name]= this.refs[field.name].getValue();             
+           break;          
+           default:
+              data[field.name]=this.refs[field.name].getDOMNode().value
+           break;
         }
       }.bind(this))
       return data
@@ -177,7 +202,7 @@ var JwtForm=React.createClass({
         return options.fields.map((field, index)=>{
           me.__key=index;
            field.hide=field.hide||false;
-           switch(field.type){
+           switch(field.type.toLowerCase()){
               case 'text':
                 return !field.hide && me.renderTextInput(field)
               break;
@@ -193,17 +218,25 @@ var JwtForm=React.createClass({
               case 'checkbox':
                 return !field.hide && me.renderCheckbox(field)
               break;
-              case 'checkboxInlines':
+              case 'checkboxinlines':
                 return !field.hide && me.renderCheckboxInlines(field)
               break;              
               case 'file':
                 return !field.hide && me.renderFileInput(field)
               break;
+              case 'multiselect':
+                return !field.hide && me.renderMultiSelectt(field)
+              break;
            }   
            return null
         })
     },
-   
+    renderMultiSelectt:function(field){
+      return this.renderField(field.name, field.label,
+        <MultiSelect ref={field.name} data={field.data} displayField={field.displayField} valueField={field.valueField}
+        hwidth={field.hwidth} width={field.width} height={field.height} onClick={field.onClick} onChange={field.onChange}/>
+      )
+    },
     renderFileInput: function(options) {
       return this.renderField(options.name, options.label,
         <input type="file" className="form-control" name={options.name} id={options.name} ref={options.name}/>

@@ -79,3 +79,45 @@
 .jwt-grid table thead .sort span{
      width: 14px; 
 }
+.multiselect{
+    display:inline-block;
+}
+.multiselect .header{
+   border: 1px solid #DDD;
+   padding:.4em;
+   cursor:pointer;
+}
+.multiselect .tool{
+     background-color:#E3E3E3;/*E3E3E3#5CB85C*/
+     padding-left:.4em;
+     padding-right:.2em;
+     padding-bottom:.4em;
+     padding-top:.1em;
+     xbox-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
+}
+.multiselect .ms-content{
+    border: 1px solid #E3E3E3;/*#4CAE4C*/
+    background-color:#FFF;
+    z-index:999;
+    position:absolute;
+    overflow:auto;
+}
+.multiselect .ms-content .item-content{
+    overflow:auto;
+}
+.multiselect .item{
+   border-bottom: 1px solid #DDD;
+    padding-left:.4em;
+    font-size:12px;
+    color:#333;
+}
+.multiselect label{
+  display:block; 
+  cursor:pointer;
+  
+}
+.multiselect .item:hover{
+    background-color:#4CAE4C;
+    transition: .3ms;
+    color:#FFF;
+}

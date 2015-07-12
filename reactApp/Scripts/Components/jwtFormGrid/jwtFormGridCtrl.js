@@ -1,5 +1,7 @@
 import BaseCtrl from 'Scripts/Base/BaseCtrl.js';
 import JwtFormGrid from 'Scripts/Modules/jwtComponents/JwtFormGrid.js';
+import MultiSelect from 'Scripts/Modules/jwtComponents/MultiSelect.js';
+
 const SVC=new WeakMap();
 class jwtFormGridCtrl extends BaseCtrl
 {
@@ -9,6 +11,10 @@ class jwtFormGridCtrl extends BaseCtrl
 		this.title='jwtFormGrid';
 		this.prepareFormGrid()
 		this.loadData()
+		var data=[
+		    {name:'ripon'}, {name:'jasim'}, {name:'rakib'}, {name:'fatema'}, {name:'jhura'}, {name:'Salma'}, {name:'Nipa'}
+		    ];
+		this.ms=React.render(React.createElement(MultiSelect, {data:data, displayField:'name', valueField:'name' }), document.getElementById('ms'))
 	}
 	
 	prepareFormGrid(){
@@ -18,7 +24,7 @@ class jwtFormGridCtrl extends BaseCtrl
 	       buttons:[
 	           {text:'Hello', onClick:()=>{alert('i am hello')}},
 	            {text:'Bangladesh', className:'btn btn-success', onClick:()=>{alert('i am bangladesh')}},
-	            {icon:'glyphicon glyphicon-plus-sign', onClick:()=>{me.formGrid.showFormWithRefresh();}},
+	            {icon:'glyphicon glyphicon-plus-sign', onClick:()=>{me.formGrid.showFormWithRefresh(); me.ms.setValue('ripon,rakib,Salma'); }},
 	            { text:'Droon', className:'btn btn-primary', title:'Droon attack on israil', icon:'glyphicon glyphicon-plus-sign', onClick:()=>{alert('i am plus sign')}}
 	           ],
 	         limit:1, loadingText:'loading...', filter:true, newItem:function(){me.formGrid.showFormWithRefresh(); },newItemText:'Add New Item',
@@ -40,7 +46,11 @@ class jwtFormGridCtrl extends BaseCtrl
 	            me.formGrid.showMessage('Form has been closed successfully!.')
 	        },
 	        fields:[
-	            {type:'text', name:'Name', label:'Name', required:true},{type:'text',  label:'Country', name:'Country', required:true},{type:'text',  label:'Age', name:'Age', required:true}
+	            {type:'text', name:'Name', label:'Name', required:true},
+	            {type:'text',  label:'Country', name:'Country', required:true},
+	            {type:'text',  label:'Age', name:'Age', required:true},
+	            {type:'multiSelect',  label:'Multi Select', name:'ms', required:true, displayField:'name',valueField:'name',data:[{name:'Rana'},{name:'Motiur'}]},
+	             {type:'multiSelect',  label:'Multi Select2', name:'ms2', hwidth:'200px', onClick:function(val){console.log(val);}, width:'300px', required:true, displayField:'name',valueField:'name',data:[{name:'Rana'},{name:'Motiur'}]}
 	            ]
 	    }
 	    this.formGrid=React.render(React.createElement(JwtFormGrid, {gridOptions:grid, formOptions:form}), document.getElementById('jwtFormGrid'))

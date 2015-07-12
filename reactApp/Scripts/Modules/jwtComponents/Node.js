@@ -9,14 +9,14 @@ var Node=React.createClass({displayName: "Node",
   },   
    getLinks:function(row, col, index){
 
-      if(!angular.isArray(col.onClick)){
+    if(col.onClick && !(col.onClick instanceof Array)){
       col.onClick=[col.onClick];
     }
     var linkText=col.linkText;
     if(!linkText){
       linkText=row[col.field];
     }
-    if(!angular.isArray(linkText)){
+    if(!(linkText instanceof Array)){
       linkText=[linkText];
     }
     return  col.onClick.map(function(fx, id){return React.createElement("a", {key: id, className: "link indented", onClick: fx.bind(null,row, index), href: "javascript:;"}, linkText[id])})    
@@ -68,15 +68,15 @@ var Node=React.createClass({displayName: "Node",
       else{
         if(col.spark){
             return React.createElement("td", {key: id, style: col.style}, React.createElement(SparkLine, {data: this.props.data[col.field], options: col.options}))
-         }
-         if(angular.isFunction(col.render)){
+        }
+        if(col.render){
             return React.createElement("td", {key: id, dangerouslySetInnerHTML: {__html: col.render(this.props.data,this.props.index)}})
-          }
-          if(col.onClick){                    
+        }
+        if(col.onClick){                    
             return React.createElement("td", {key: id, className: col.className, style: col.style}, this.getLinks(this.props.data, col, this.props.index))
-          }
+        }
           
-         return React.createElement("td", {key: id, className: col.className, style: col.style}, this.props.data[col.field])
+        return React.createElement("td", {key: id, className: col.className, style: col.style}, this.props.data[col.field])
       }
   }
   

@@ -8,18 +8,19 @@ var Row=React.createClass({
       return {options:{}}
   },   
    getLinks:function(row, col, index){
-      if(!angular.isArray(col.onClick)){
+
+    if(col.onClick && !(col.onClick instanceof Array)){
       col.onClick=[col.onClick];
     }
     var linkText=col.linkText;
     if(!linkText){
       linkText=row[col.field];
     }
-    if(!angular.isArray(linkText)){
+    if(!(linkText instanceof Array)){
       linkText=[linkText];
     }
     var icons=col.icon;
-    if(col.icon && !angular.isArray(icons)){
+    if(col.icon && !(icons instanceof Array)){
     	icons=[icons];    	
     }    
 
@@ -55,7 +56,7 @@ var Row=React.createClass({
         if(col.spark){
             return <td key={id} style={col.style}><SparkLine data={this.state.data[col.field]} options={col.options}/></td>
          }
-         if(angular.isFunction(col.render)){
+         if(col.render){
             return <td key={id}  dangerouslySetInnerHTML={{__html: col.render(this.state.data,this.props.index)}}></td>
           }
           if(col.onClick){                    

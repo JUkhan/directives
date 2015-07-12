@@ -9,7 +9,7 @@ var SparkLine=React.createClass({
    return <span/>
   },
   renderSparkline:function(){
-      var data=angular.isArray(this.props.data)?this.props.data:this.props.data.split(',');
+      var data=(this.props.data instanceof Array)?this.props.data:this.props.data.split(',');
       $(this.getDOMNode()).sparkline(data, this.props.options);
   }
 });
