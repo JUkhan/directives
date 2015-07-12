@@ -64,8 +64,8 @@ var JwtForm=React.createClass({displayName: "JwtForm",
 
         if(field.type.toLowerCase()=='multiselect' && field.required){        
               if (!this.refs[field.name].getValue()) {
-                errors[field.name] = 'This field is required'
-              }        
+                errors[field.name] = 'This field is required';                
+              }                    
         }
         else if(!(field.type.toLowerCase()=='radio' || field.type.toLowerCase()=='checkbox' || field.type.toLowerCase()=='checkboxinlines')){
           if(field.required){
@@ -233,7 +233,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
     },
     renderMultiSelectt:function(field){
       return this.renderField(field.name, field.label,
-        React.createElement(MultiSelect, {ref: field.name, data: field.data, displayField: field.displayField, valueField: field.valueField, 
+        React.createElement(MultiSelect, {ref: field.name, data: field.data, hasError: field.name in this.state.errors, displayField: field.displayField, valueField: field.valueField, 
         hwidth: field.hwidth, width: field.width, height: field.height, onClick: field.onClick, onChange: field.onChange})
       )
     },

@@ -5,7 +5,7 @@ var MultiSelect=React.createClass({
         return {data: this.props.data, isHidden:true, txtSearch:'', dataStorage:this.props.data}
     },
   	getDefaultProps:function(){
-      return { width:'200px', height:'150px', data:[], hwidth:'200px'}
+      return { width:'200px', height:'150px', data:[], hwidth:'200px', hasError:false}
     }, 
     componentDidMount:function(){
       $(this.refs.mscontent.getDOMNode()).hide();
@@ -122,13 +122,20 @@ var MultiSelect=React.createClass({
   		this.state.isHidden=true;
   		$(this.refs.mscontent.getDOMNode()).hide();
   	},
+  	hasError:function(flag){
+  		if(flag){
+  			$(this.refs.header.getDOMNode()).addClass('has-error');
+  		}else{
+  			$(this.refs.header.getDOMNode()).removeClass('has-error');
+  		}
+  	},
   	render: function(){
   		var submit=null, me=this;  		
   		if(this.props.onClick){
   			submit=<div><input type="button" className="btn btn-default btn-block" value="Submit" onClick={this.onSubmit} /></div>
   		}
    		return <div className="multiselect" style={{minWidth:this.props.hwidth}}>   			
-   			<div className="header" style={{width:this.props.hwidth}} onClick={this.onHeaderClick}><span ref="selectedText">0 selected</span>
+   			<div ref="header" className={$class('header', {'has-error': this.props.hasError})} style={{width:this.props.hwidth}} onClick={this.onHeaderClick}><span ref="selectedText">0 selected</span>
    				<div  className="pull-right"><span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></div>
    			</div>
    			<div ref="mscontent" className="ms-content" style={{width:this.props.width}}>
@@ -147,4 +154,21 @@ var MultiSelect=React.createClass({
    		</div>
   	}
 });
+
+function $class(staticClassName, conditionalClassNames) {
+  var classNames = []
+  if (typeof conditionalClassNames == 'undefined') {
+    conditionalClassNames = staticClassName
+  }
+  else {
+    classNames.push(staticClassName)
+  }
+  for (var className in conditionalClassNames) {
+    if (!!conditionalClassNames[className]) {
+      classNames.push(className)
+    }
+  }
+  return classNames.join(' ')
+}
+
 export default MultiSelect;
