@@ -14,7 +14,7 @@ class jwtFormGridCtrl extends BaseCtrl
 		var data=[
 		    {name:'ripon'}, {name:'jasim'}, {name:'rakib'}, {name:'fatema'}, {name:'jhura'}, {name:'Salma'}, {name:'Nipa'}
 		    ];
-		this.ms=React.render(React.createElement(MultiSelect, {data:data, displayField:'name', valueField:'name' }), document.getElementById('ms'))
+		this.ms=React.render(React.createElement(MultiSelect, {data:data,  render:function(d, i){ return d.name+' '+i; }, displayField:'name', valueField:'name' }), document.getElementById('ms'))
 	}
 	
 	prepareFormGrid(){
@@ -49,7 +49,7 @@ class jwtFormGridCtrl extends BaseCtrl
 	            {type:'text', name:'Name', label:'Name', required:true},
 	            {type:'text',  label:'Country', name:'Country', required:true},
 	            {type:'text',  label:'Age', name:'Age', required:true},
-	            {type:'multiSelect',  label:'Multi Select', name:'ms', required:true, displayField:'name',valueField:'name',data:[{name:'Rana'},{name:'Motiur'}]},
+	            {type:'multiSelect',  label:'Multi Select', name:'ms', required:true, render:function(d, i){ return d.name+' '+i; }, displayField:'name',valueField:'name',data:[{name:'Rana'},{name:'Motiur Mamma'}]},
 	             {type:'multiSelect',  label:'Multi Select2', name:'ms2', hwidth:'200px', onClick:function(val){console.log(val);}, width:'300px', required:true, displayField:'name',valueField:'name',data:[{name:'Rana'},{name:'Motiur'}]}
 	            ]
 	    }

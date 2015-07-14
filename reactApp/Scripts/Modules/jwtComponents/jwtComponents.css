@@ -99,10 +99,19 @@
 .multiselect .tool{
      background-color:#E3E3E3;/*E3E3E3#5CB85C*/
      padding-left:.4em;
-     padding-right:.2em;
+     padding-right:.1em;
      padding-bottom:.4em;
      padding-top:.1em;
-     xbox-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
+     
+}
+.multiselect .tool input[type='text']{
+    width:150px; 
+    border-radius: 4px;
+    border: 1px solid #CCC;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    padding-left:.4em;
+    height:24px;
 }
 .multiselect .ms-content{
     border: 1px solid #CCC;/*#4CAE4C*/

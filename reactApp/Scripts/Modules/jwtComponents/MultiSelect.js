@@ -146,7 +146,7 @@ var MultiSelect=React.createClass({displayName: "MultiSelect",
    				React.createElement("div", {className: "item-content", style: {height:this.props.height}}, 
    				
    				me.state.data.map(function(itemData, index){
-   					return React.createElement(SelectItem, {key: index, data: itemData, displayField: me.props.displayField, render: me.props.render, checkItem: me.checkItem})
+   					return React.createElement(SelectItem, {key: index, data: itemData, index: index, displayField: me.props.displayField, render: me.props.render, checkItem: me.checkItem})
    				})
    			), 
    			submit

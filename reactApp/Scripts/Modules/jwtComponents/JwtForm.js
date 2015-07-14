@@ -234,7 +234,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
     renderMultiSelectt:function(field){
       return this.renderField(field.name, field.label,
         React.createElement(MultiSelect, {ref: field.name, data: field.data, hasError: field.name in this.state.errors, displayField: field.displayField, valueField: field.valueField, 
-        hwidth: field.hwidth, width: field.width, height: field.height, onClick: field.onClick, onChange: field.onChange})
+        hwidth: field.hwidth, width: field.width, height: field.height, render: field.render, onClick: field.onClick, onChange: field.onChange})
       )
     },
     renderFileInput: function(options) {

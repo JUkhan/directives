@@ -11,7 +11,7 @@ var SelectItem=React.createClass({
     var item=this.props.data;
     this.state.data=item;
     if(this.props.render){
-          return <div className="item"><label><input checked={item['_chk_']} type="checkbox"/> <span dangerouslySetInnerHTML={{__html: this.props.render(item,index)}}></span></label></div>
+          return <div className="item"><label><input checked={item['_chk_']} onChange={this.checkItem} type="checkbox"/> <span dangerouslySetInnerHTML={{__html: this.props.render(item, this.props.index)}}></span></label></div>
     }
     if(this.props.displayField){
           return <div className="item"><label><input checked={item['_chk_']} onChange={this.checkItem} type="checkbox"/> {item[this.props.displayField]}</label></div>
