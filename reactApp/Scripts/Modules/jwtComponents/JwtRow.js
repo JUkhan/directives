@@ -1,6 +1,6 @@
-import SparkLine from 'Scripts/Modules/jwtComponents/SparkLine.js';
+import JwtSparkLine from 'Scripts/Modules/jwtComponents/JwtSparkLine.js';
 
-var Row=React.createClass({displayName: "Row",
+var JwtRow=React.createClass({displayName: "JwtRow",
   getInitialState:function(){
     return {data:[], pageNo:1, dataStorage:null, isFilter:false}
   },
@@ -54,7 +54,7 @@ var Row=React.createClass({displayName: "Row",
   renderRow:function(col, id){ 
            
         if(col.spark){
-            return React.createElement("td", {key: id, style: col.style}, React.createElement(SparkLine, {data: this.state.data[col.field], options: col.options}))
+            return React.createElement("td", {key: id, style: col.style}, React.createElement(JwtSparkLine, {data: this.state.data[col.field], options: col.options}))
          }
          if(col.render){
             return React.createElement("td", {key: id, dangerouslySetInnerHTML: {__html: col.render(this.state.data,this.props.index)}})
@@ -67,5 +67,5 @@ var Row=React.createClass({displayName: "Row",
   }
   
 });
-export default Row;
+export default JwtRow;
 

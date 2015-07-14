@@ -1,6 +1,7 @@
 import BaseCtrl from 'Scripts/Base/BaseCtrl.js';
-import JwtForm from 'Scripts/Modules/jwtComponents/JwtForm.js'
-
+import JwtForm from 'Scripts/Modules/jwtComponents/JwtForm.js';
+import JwtGrid from 'Scripts/Modules/jwtComponents/JwtGrid.js';
+import JwtSparkLine from 'Scripts/Modules/jwtComponents/JwtSparkLine.js';
 
 const SVC=new WeakMap();
 class reactWidgetCtrl extends BaseCtrl
@@ -22,6 +23,9 @@ class reactWidgetCtrl extends BaseCtrl
 		      {field:'spark', displayName:'Spark Line', spark:true, options:{type:'line'}}
 		        ]
 		};
+		
+	    this.grid=React.render(React.createElement(JwtGrid,{options:this.options}), document.getElementById('grid'));
+		
 		this.loadData();
 		this.sparkLine();
 		var fornOptions={
@@ -56,9 +60,8 @@ class reactWidgetCtrl extends BaseCtrl
 
 	loadData(){
 	    SVC.get(this).getData().success(res=>{console.log('done'); 
-	    this.data=angular.fromJson(res.data);
-	    this.options.loadingText=null;
-	     //React.render(React.createElement(HelloComponent, {config: this.person}), document.getElementById('mac'));
+	    this.grid.setData(angular.fromJson(res.data));
+	   
 	    });
 	}
 	
@@ -86,7 +89,7 @@ class reactWidgetCtrl extends BaseCtrl
             }
         };
         
-        
+        React.render(React.createElement(JwtSparkLine, { options:this.sparkOptions, data:this.stprkData}), document.getElementById('sparkLine'));
 	}
 }
 reactWidgetCtrl.$inject=['$scope', 'reactWidgetSvc'];

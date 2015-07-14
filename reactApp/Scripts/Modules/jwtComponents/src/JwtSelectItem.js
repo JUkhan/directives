@@ -1,4 +1,4 @@
-var SelectItem=React.createClass({
+var JwtSelectItem=React.createClass({
   getInitialState:function(){
       return {data: []}
   },
@@ -19,4 +19,4 @@ var SelectItem=React.createClass({
   }
   
 });
-export default SelectItem;
+export default JwtSelectItem;

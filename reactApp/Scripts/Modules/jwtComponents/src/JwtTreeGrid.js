@@ -1,7 +1,7 @@
 
 
-import Pager from 'Scripts/Modules/jwtComponents/Pager.js';
-import Node from 'Scripts/Modules/jwtComponents/Node.js';
+import JwtPager from 'Scripts/Modules/jwtComponents/JwtPager.js';
+import JwtNode from 'Scripts/Modules/jwtComponents/JwtNode.js';
 
 
 var JwtTreeGrid = React.createClass({
@@ -112,7 +112,7 @@ var JwtTreeGrid = React.createClass({
   var len=this.props.data.length, pager=null, limit=options.limit||20;
   if(options.filter && !this.state.isFilter){this.state.dataStorage=this.props.data;} 
   if(len>limit){    
-    pager=<Pager pos={options.pagerPos||'left'} limit={limit} totalRow={len} onPageChange={this.onPageChange}  />
+    pager=<JwtPager pos={options.pagerPos||'left'} limit={limit} totalRow={len} onPageChange={this.onPageChange}  />
     
     this.state.data=this.props.data.slice(((this.state.pageNo-1)*limit),limit*this.state.pageNo);
   }
@@ -147,7 +147,7 @@ var JwtTreeGrid = React.createClass({
                 <tbody>
                 {
                      this.state.data.map(function(row, index){
-                          return <Node key={index} level={1} options={options} data={row} index={index}/>
+                          return <JwtNode key={index} level={1} options={options} data={row} index={index}/>
                      })   
                         
                 }

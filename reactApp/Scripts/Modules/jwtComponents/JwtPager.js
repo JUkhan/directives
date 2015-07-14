@@ -1,4 +1,4 @@
-var Pager=React.createClass({
+var JwtPager=React.createClass({
     displayName:'Pager',
 	getInitialState:function(){
 		return {limit:20, pageNo:1, totalRow:0, totalPage:0, firstClass:'disabled', lastClass:''}
@@ -50,4 +50,4 @@ var Pager=React.createClass({
     }
 });
 
-export default Pager;
+export default JwtPager;

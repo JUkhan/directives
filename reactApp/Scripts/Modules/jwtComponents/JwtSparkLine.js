@@ -1,4 +1,4 @@
-var SparkLine=React.createClass({displayName: "SparkLine",
+var JwtSparkLine=React.createClass({displayName: "JwtSparkLine",
     componentDidMount:function(){
         this.renderSparkline()
     },
@@ -13,4 +13,4 @@ var SparkLine=React.createClass({displayName: "SparkLine",
       $(this.getDOMNode()).sparkline(data, this.props.options);
   }
 });
-export default SparkLine;
+export default JwtSparkLine;

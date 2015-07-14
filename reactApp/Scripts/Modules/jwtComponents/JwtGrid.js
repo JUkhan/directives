@@ -1,8 +1,8 @@
 
 
-import Pager from 'Scripts/Modules/jwtComponents/Pager.js';
-import Row from 'Scripts/Modules/jwtComponents/Row.js';
-
+import JwtPager from 'Scripts/Modules/jwtComponents/JwtPager.js';
+import JwtRow from 'Scripts/Modules/jwtComponents/JwtRow.js';
+import {cssClass} from 'Scripts/Modules/jwtComponents/JwtUtil.js';
 
 var JwtGrid = React.createClass({displayName: "JwtGrid",
   getInitialState:function(){
@@ -212,7 +212,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
 	{
 		len=this.props.data.length
 		if(len>limit){		
-			pager=React.createElement(Pager, {pos: options.pagerPos||'left', limit: limit, totalRow: len, onPageChange: this.onPageChange})
+			pager=React.createElement(JwtPager, {pos: options.pagerPos||'left', limit: limit, totalRow: len, onPageChange: this.onPageChange})
 			this.state.data=this.props.data;
 			data=this.props.data.slice(((this.state.pageNo-1)*limit),limit*this.state.pageNo);
 
@@ -224,7 +224,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
 	}else{
 		len=this.state.data.length
 		if(len>limit){		
-			pager=React.createElement(Pager, {pos: options.pagerPos||'left', limit: limit, totalRow: len, onPageChange: this.onPageChange})
+			pager=React.createElement(JwtPager, {pos: options.pagerPos||'left', limit: limit, totalRow: len, onPageChange: this.onPageChange})
 			
 			data=this.state.data.slice(((this.state.pageNo-1)*limit),limit*this.state.pageNo);
 		}
@@ -243,7 +243,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
     } 
     
     return (
-            React.createElement("div", {className: $class('jwt-grid table-responsive', {hide:this.state.hide})}, 
+            React.createElement("div", {className: cssClass('jwt-grid table-responsive', {hide:this.state.hide})}, 
            	 React.createElement("div", {className: "well"}, pager, " ", this.getNewItem(), " ", this.getButtons(), " ", this.getFilter(options)), 
             React.createElement("table", {className: options.className}, 
                 React.createElement("thead", null, 
@@ -266,7 +266,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
                 React.createElement("tbody", null, 
                 
                      data.map(function(row, index){
-                       		return React.createElement(Row, {key: index, rowCheck: that.rowCheck, options: options, data: row, index: index})
+                       		return React.createElement(JwtRow, {key: index, rowCheck: that.rowCheck, options: options, data: row, index: index})
                      })   
                         
                 
@@ -277,21 +277,5 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
         )
   }
 });
-
-function $class(staticClassName, conditionalClassNames) {
-  var classNames = []
-  if (typeof conditionalClassNames == 'undefined') {
-    conditionalClassNames = staticClassName
-  }
-  else {
-    classNames.push(staticClassName)
-  }
-  for (var className in conditionalClassNames) {
-    if (!!conditionalClassNames[className]) {
-      classNames.push(className)
-    }
-  }
-  return classNames.join(' ')
-}
 
 export default JwtGrid;

@@ -1,6 +1,6 @@
-import SelectItem from 'Scripts/Modules/jwtComponents/SelectItem.js';
-
-var MultiSelect=React.createClass({
+import JwtSelectItem from 'Scripts/Modules/jwtComponents/JwtSelectItem.js';
+import {cssClass} from 'Scripts/Modules/jwtComponents/JwtUtil.js';
+var JwtMultiSelect=React.createClass({displayName: "JwtMultiSelect",
   	getInitialState:function(){
         return {data: this.props.data, isHidden:true, txtSearch:'', dataStorage:this.props.data}
     },
@@ -132,43 +132,28 @@ var MultiSelect=React.createClass({
   	render: function(){
   		var submit=null, me=this;  		
   		if(this.props.onClick){
-  			submit=<div><input type="button" className="btn btn-default btn-block" value="Submit" onClick={this.onSubmit} /></div>
+  			submit=React.createElement("div", null, React.createElement("input", {type: "button", className: "btn btn-default btn-block", value: "Submit", onClick: this.onSubmit}))
   		}
-   		return <div className="multiselect" style={{minWidth:this.props.hwidth}}>   			
-   			<div ref="header" className={$class('header', {'has-error': this.props.hasError})} style={{width:this.props.hwidth}} onClick={this.onHeaderClick}><span ref="selectedText">0 selected</span>
-   				<div  className="pull-right"><span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></div>
-   			</div>
-   			<div ref="mscontent" className="ms-content" style={{width:this.props.width}}>
-   				<div className="tool">
-   				<input ref="allChk" title="Select All" onChange={this.checkAll} type="checkbox"/>
-   				<div  className="pull-right"><input ref="txtSearch" value={this.state.txtSearch} onChange={this.onSearch} type="text" placeholder="search for..."/></div>
-   				</div>
-   				<div className="item-content" style={{height:this.props.height}}>
-   				{
+   		return React.createElement("div", {className: "multiselect", style: {minWidth:this.props.hwidth}}, 			
+   			React.createElement("div", {ref: "header", className: cssClass('header', {'has-error': this.props.hasError}), style: {width:this.props.hwidth}, onClick: this.onHeaderClick}, React.createElement("span", {ref: "selectedText"}, "0 selected"), 
+   				React.createElement("div", {className: "pull-right"}, React.createElement("span", {className: "glyphicon glyphicon-triangle-top", "aria-hidden": "true"}))
+   			), 
+   			React.createElement("div", {ref: "mscontent", className: "ms-content", style: {width:this.props.width}}, 
+   				React.createElement("div", {className: "tool"}, 
+   				React.createElement("input", {ref: "allChk", title: "Select All", onChange: this.checkAll, type: "checkbox"}), 
+   				React.createElement("div", {className: "pull-right"}, React.createElement("input", {ref: "txtSearch", value: this.state.txtSearch, onChange: this.onSearch, type: "text", placeholder: "search for..."}))
+   				), 
+   				React.createElement("div", {className: "item-content", style: {height:this.props.height}}, 
+   				
    				me.state.data.map(function(itemData, index){
-   					return <SelectItem key={index} data={itemData} index={index} displayField={me.props.displayField} render={me.props.render} checkItem={me.checkItem} />
+   					return React.createElement(JwtSelectItem, {key: index, data: itemData, index: index, displayField: me.props.displayField, render: me.props.render, checkItem: me.checkItem})
    				})
-   			}</div>
-   			{submit}
-   			</div>
-   		</div>
+   			), 
+   			submit
+   			)
+   		)
   	}
 });
 
-function $class(staticClassName, conditionalClassNames) {
-  var classNames = []
-  if (typeof conditionalClassNames == 'undefined') {
-    conditionalClassNames = staticClassName
-  }
-  else {
-    classNames.push(staticClassName)
-  }
-  for (var className in conditionalClassNames) {
-    if (!!conditionalClassNames[className]) {
-      classNames.push(className)
-    }
-  }
-  return classNames.join(' ')
-}
 
-export default MultiSelect;
+export default JwtMultiSelect;

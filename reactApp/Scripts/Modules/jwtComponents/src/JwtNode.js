@@ -1,6 +1,6 @@
-import SparkLine from 'Scripts/Modules/jwtComponents/SparkLine.js';
+import JwtSparkLine from 'Scripts/Modules/jwtComponents/JwtSparkLine.js';
 
-var Node=React.createClass({
+var JwtNode=React.createClass({
   getInitialState:function(){
     return {data:[], pageNo:1, dataStorage:null, isFilter:false, isExpanded:false}
   },
@@ -42,7 +42,7 @@ var Node=React.createClass({
                    }</tr>,
                     that.props.data[that.props.options.childListName].map(function(row, index){
            
-                         return <Node key={index+that.props.index+1} level={that.props.level+1} options={that.props.options} data={row} index={index} />
+                         return <JwtNode key={index+that.props.index+1} level={that.props.level+1} options={that.props.options} data={row} index={index} />
                     })]
              }       
             </tbody>
@@ -67,7 +67,7 @@ var Node=React.createClass({
       }
       else{
         if(col.spark){
-            return <td key={id} style={col.style}><SparkLine data={this.props.data[col.field]} options={col.options}/></td>
+            return <td key={id} style={col.style}><JwtSparkLine data={this.props.data[col.field]} options={col.options}/></td>
         }
         if(col.render){
             return <td key={id}  dangerouslySetInnerHTML={{__html: col.render(this.props.data,this.props.index)}}></td>
@@ -81,5 +81,5 @@ var Node=React.createClass({
   }
   
 });
-export default Node;
+export default JwtNode;
 

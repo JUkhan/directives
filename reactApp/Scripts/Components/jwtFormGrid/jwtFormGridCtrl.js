@@ -1,6 +1,6 @@
 import BaseCtrl from 'Scripts/Base/BaseCtrl.js';
 import JwtFormGrid from 'Scripts/Modules/jwtComponents/JwtFormGrid.js';
-import MultiSelect from 'Scripts/Modules/jwtComponents/MultiSelect.js';
+import JwtMultiSelect from 'Scripts/Modules/jwtComponents/JwtMultiSelect.js';
 
 const SVC=new WeakMap();
 class jwtFormGridCtrl extends BaseCtrl
@@ -14,7 +14,7 @@ class jwtFormGridCtrl extends BaseCtrl
 		var data=[
 		    {name:'ripon'}, {name:'jasim'}, {name:'rakib'}, {name:'fatema'}, {name:'jhura'}, {name:'Salma'}, {name:'Nipa'}
 		    ];
-		this.ms=React.render(React.createElement(MultiSelect, {data:data,  render:function(d, i){ return d.name+' '+i; }, displayField:'name', valueField:'name' }), document.getElementById('ms'))
+		this.ms=React.render(React.createElement(JwtMultiSelect, {data:data,  render:function(d, i){ return d.name+' '+i; }, displayField:'name', valueField:'name' }), document.getElementById('ms'))
 	}
 	
 	prepareFormGrid(){

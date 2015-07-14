@@ -1,4 +1,5 @@
-import MultiSelect from 'Scripts/Modules/jwtComponents/MultiSelect.js';
+import JwtMultiSelect from 'Scripts/Modules/jwtComponents/JwtMultiSelect.js';
+import {cssClass, capitalize} from 'Scripts/Modules/jwtComponents/JwtUtil.js';
 
 var JwtForm=React.createClass({
     getInitialState:function(){
@@ -171,7 +172,7 @@ var JwtForm=React.createClass({
            &nbsp; {this.state.message}
           </div>
       }
-       return <div className={$class('jwt-form',{hide:this.state.isHide})}>
+       return <div className={cssClass('jwt-form',{hide:this.state.isHide})}>
              <div className={'panel panel-'+options.laf}>
                   <div className="panel-heading clearfix">
                        <h3 className="panel-title pull-left">{options.title}</h3>
@@ -233,7 +234,7 @@ var JwtForm=React.createClass({
     },
     renderMultiSelectt:function(field){
       return this.renderField(field.name, field.label,
-        <MultiSelect ref={field.name} data={field.data} hasError={field.name in this.state.errors} displayField={field.displayField} valueField={field.valueField}
+        <JwtMultiSelect ref={field.name} data={field.data} hasError={field.name in this.state.errors} displayField={field.displayField} valueField={field.valueField}
         hwidth={field.hwidth} width={field.width} height={field.height} render={field.render} onClick={field.onClick} onChange={field.onChange}/>
       )
     },
@@ -316,7 +317,7 @@ var JwtForm=React.createClass({
   },
   __key:1,
   renderField: function(id, label, field) {
-    return <div key={this.__key} className={$class('form-group', {'has-error': id in this.state.errors})}>
+    return <div key={this.__key} className={cssClass('form-group', {'has-error': id in this.state.errors})}>
       <label htmlFor={id} className="col-sm-4 control-label">{label}</label>
       <div className="col-sm-6">
         {field}
@@ -326,30 +327,5 @@ var JwtForm=React.createClass({
 })
 
 // Utilsg
-
-var trim = function() {
-  var TRIM_RE = /^\s+|\s+$/g
-  return function trim(string) {
-    return string.replace(TRIM_RE, '')
-  }
-}()
-function capitalize(value){
-    return value[0].toUpperCase()+value.substring(1);
-}
-function $class(staticClassName, conditionalClassNames) {
-  var classNames = []
-  if (typeof conditionalClassNames == 'undefined') {
-    conditionalClassNames = staticClassName
-  }
-  else {
-    classNames.push(staticClassName)
-  }
-  for (var className in conditionalClassNames) {
-    if (!!conditionalClassNames[className]) {
-      classNames.push(className)
-    }
-  }
-  return classNames.join(' ')
-}
 
 export default JwtForm;

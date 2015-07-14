@@ -1,4 +1,5 @@
-import MultiSelect from 'Scripts/Modules/jwtComponents/MultiSelect.js';
+import JwtMultiSelect from 'Scripts/Modules/jwtComponents/JwtMultiSelect.js';
+import {cssClass, capitalize} from 'Scripts/Modules/jwtComponents/JwtUtil.js';
 
 var JwtForm=React.createClass({displayName: "JwtForm",
     getInitialState:function(){
@@ -171,7 +172,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
            "  ", this.state.message
           )
       }
-       return React.createElement("div", {className: $class('jwt-form',{hide:this.state.isHide})}, 
+       return React.createElement("div", {className: cssClass('jwt-form',{hide:this.state.isHide})}, 
              React.createElement("div", {className: 'panel panel-'+options.laf}, 
                   React.createElement("div", {className: "panel-heading clearfix"}, 
                        React.createElement("h3", {className: "panel-title pull-left"}, options.title)
@@ -233,7 +234,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
     },
     renderMultiSelectt:function(field){
       return this.renderField(field.name, field.label,
-        React.createElement(MultiSelect, {ref: field.name, data: field.data, hasError: field.name in this.state.errors, displayField: field.displayField, valueField: field.valueField, 
+        React.createElement(JwtMultiSelect, {ref: field.name, data: field.data, hasError: field.name in this.state.errors, displayField: field.displayField, valueField: field.valueField, 
         hwidth: field.hwidth, width: field.width, height: field.height, render: field.render, onClick: field.onClick, onChange: field.onChange})
       )
     },
@@ -316,7 +317,7 @@ var JwtForm=React.createClass({displayName: "JwtForm",
   },
   __key:1,
   renderField: function(id, label, field) {
-    return React.createElement("div", {key: this.__key, className: $class('form-group', {'has-error': id in this.state.errors})}, 
+    return React.createElement("div", {key: this.__key, className: cssClass('form-group', {'has-error': id in this.state.errors})}, 
       React.createElement("label", {htmlFor: id, className: "col-sm-4 control-label"}, label), 
       React.createElement("div", {className: "col-sm-6"}, 
         field
@@ -326,30 +327,5 @@ var JwtForm=React.createClass({displayName: "JwtForm",
 })
 
 // Utilsg
-
-var trim = function() {
-  var TRIM_RE = /^\s+|\s+$/g
-  return function trim(string) {
-    return string.replace(TRIM_RE, '')
-  }
-}()
-function capitalize(value){
-    return value[0].toUpperCase()+value.substring(1);
-}
-function $class(staticClassName, conditionalClassNames) {
-  var classNames = []
-  if (typeof conditionalClassNames == 'undefined') {
-    conditionalClassNames = staticClassName
-  }
-  else {
-    classNames.push(staticClassName)
-  }
-  for (var className in conditionalClassNames) {
-    if (!!conditionalClassNames[className]) {
-      classNames.push(className)
-    }
-  }
-  return classNames.join(' ')
-}
 
 export default JwtForm;
