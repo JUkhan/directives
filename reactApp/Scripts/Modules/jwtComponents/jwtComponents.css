@@ -140,3 +140,11 @@
     transition: .3ms;
     color:#FFF;
 }
+.jwt-tree .btn{
+   padding:0; 
+}
+
+.jwt-tree ul{
+    list-style:none;
+    padding-left:2em;
+}
