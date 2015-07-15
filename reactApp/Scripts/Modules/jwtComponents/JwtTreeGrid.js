@@ -147,6 +147,7 @@ var JwtTreeGrid = React.createClass({displayName: "JwtTreeGrid",
                 React.createElement("tbody", null, 
                 
                      this.state.data.map(function(row, index){
+                     	
                           return React.createElement(JwtNode, {key: index, level: 1, options: options, data: row, index: index})
                      })   
                         

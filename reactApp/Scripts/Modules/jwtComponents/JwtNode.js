@@ -9,14 +9,14 @@ var JwtNode=React.createClass({displayName: "JwtNode",
   },   
    getLinks:function(row, col, index){
 
-    if(col.onClick && !(col.onClick instanceof Array)){
+    if(col.onClick && !Array.isArray(col.onClick)){
       col.onClick=[col.onClick];
     }
     var linkText=col.linkText;
     if(!linkText){
       linkText=row[col.field];
     }
-    if(!(linkText instanceof Array)){
+    if(!Array.isArray(linkText)){
       linkText=[linkText];
     }
     return  col.onClick.map(function(fx, id){return React.createElement("a", {key: id, className: "link indented", onClick: fx.bind(null,row, index), href: "javascript:;"}, linkText[id])})    
@@ -49,7 +49,7 @@ var JwtNode=React.createClass({displayName: "JwtNode",
           )
         )
       )
-     
+     	
      }
      else{
      	that.icon='plus';          

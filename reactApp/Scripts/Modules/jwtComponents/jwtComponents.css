@@ -3,6 +3,9 @@
       padding: 0; 
       margin: 0; 
 }
+.jwt-grid .table > tbody > tr > td, .jwt-grid .table > thead > tr > th{
+    padding:4px;
+}
 .jwt-grid .pagination{
     margin:0px;
 }
@@ -11,12 +14,10 @@
   height: auto !important;
 }
 .jwt-grid .link{margin-right: 0.4em;}
-.jwt-grid tr td .btn{
+.jwt-grid tbody tr td .btn{
     padding:0 4px;
 }
 .tgrid{
-    
-    xwidth:100%;
     display:table;
     border: 1px solid #dddddd;
     padding:0px;
