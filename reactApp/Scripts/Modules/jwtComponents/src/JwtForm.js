@@ -228,9 +228,58 @@ var JwtForm=React.createClass({
               case 'multiselect':
                 return !field.hide && me.renderMultiSelectt(field)
               break;
+              case 'timepicker':
+                return !field.hide && me.renderTimepicker(field)
+              break;
+              case 'colorpicker':
+                return !field.hide && me.renderColorpicker(field)
+              break;
+               case 'datepicker':
+                return !field.hide && me.renderDatepicker(field)
+              break;
            }   
            return null
         })
+    },
+    componentDidMount:function(){
+       this.props.options.fields.forEach(function(field) {
+        switch(field.type.toLowerCase()){
+           case 'timepicker':       
+               $(this.refs[field.name].getDOMNode()).timepicker(field.options||{});
+           break;
+           case 'colorpicker':       
+               $(this.refs[field.name+'009'].getDOMNode()).colorpicker(field.options||{});               
+           break;
+            case 'datepicker':       
+               $(this.refs[field.name+'009'].getDOMNode()).datepicker(field.options||{});               
+           break;
+        }
+      }.bind(this));
+    },
+     renderTimepicker: function(options) {
+      return this.renderField(options.name, options.label,
+        <div className="input-group bootstrap-timepicker">
+            <input type="text" className="form-control" id={options.name} ref={options.name}/>
+            <span className="input-group-addon"><i className="glyphicon glyphicon-time"></i></span>
+        </div>
+      )
+    },  
+    
+    renderDatepicker: function(options) {
+      return this.renderField(options.name, options.label,
+        <div ref={options.name+'009'} className="input-group date">
+            <input type="text" className="form-control" id={options.name} ref={options.name}/>            
+            <span className="input-group-addon"><i className="glyphicon glyphicon-calendar"></i></span>
+        </div>
+      )
+    },
+     renderColorpicker: function(options) {
+      return this.renderField(options.name, options.label,
+        <div ref={options.name+'009'} className="input-group colorpicker-component">
+            <input type="text" className="form-control" id={options.name} ref={options.name}/>
+            <span className="input-group-addon"><i></i></span>
+        </div>
+      )
     },
     renderMultiSelectt:function(field){
       return this.renderField(field.name, field.label,
