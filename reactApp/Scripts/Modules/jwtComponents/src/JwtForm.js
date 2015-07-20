@@ -35,7 +35,8 @@ var JwtForm=React.createClass({
               break;
               case 'multiselect':
                 this.refs[field.name].setValue('');
-               break;        
+               break; 
+               case 'info': break;        
               default:
                 this.refs[field.name].getDOMNode().value=''
               break;
@@ -109,7 +110,8 @@ var JwtForm=React.createClass({
               break;
               case 'multiSelect':
                  this.refs[field.name].setValue(data[field.name]);             
-              break;        
+              break; 
+              case 'info': break;        
               default:
                 this.refs[field.name].getDOMNode().value=data[field.name]||''
               break
@@ -149,7 +151,8 @@ var JwtForm=React.createClass({
            break;
            case 'multiselect':
               data[field.name]= this.refs[field.name].getValue();             
-           break;          
+           break; 
+           case 'info': break;         
            default:
               data[field.name]=this.refs[field.name].getDOMNode().value
            break;
@@ -237,6 +240,9 @@ var JwtForm=React.createClass({
                case 'datepicker':
                 return !field.hide && me.renderDatepicker(field)
               break;
+              case 'info':
+                return !field.hide && me.renderInfo(field)
+              break;
            }   
            return null
         })
@@ -255,6 +261,15 @@ var JwtForm=React.createClass({
            break;
         }
       }.bind(this));
+       if(this.props.componentDidMount){
+          this.props.componentDidMount(this);
+       }
+    },
+    renderInfo:function(options){
+      //label label-success
+      return this.renderField(options.name, options.label,
+       <h3 className="message"> <span className={"label label-" +(options.laf||'info')}>{options.message}</span></h3>
+      )
     },
      renderTimepicker: function(options) {
       return this.renderField(options.name, options.label,

@@ -148,3 +148,8 @@
     list-style:none;
     padding-left:2em;
 }
+
+.jwt-form .message {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
