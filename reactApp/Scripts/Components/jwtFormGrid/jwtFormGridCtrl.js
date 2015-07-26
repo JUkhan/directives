@@ -12,7 +12,7 @@ class jwtFormGridCtrl extends BaseCtrl
 		this.prepareFormGrid()
 		this.loadData()
 		
-		$('.demo2').colorpicker();
+		
 		var data=[
 		    {name:'ripon'}, {name:'jasim'}, {name:'rakib'}, {name:'fatema'}, {name:'jhura'}, {name:'Salma'}, {name:'Nipa'}
 		    ];
@@ -48,10 +48,11 @@ class jwtFormGridCtrl extends BaseCtrl
 	            me.formGrid.showMessage('Form has been closed successfully!.')
 	        },
 	        fields:[
+	            //{type:'text', name:'Name', label:'Name', icon:'glyphicon glyphicon-plus-sign', onClick:()=>{alert('NAme check');}},
 	            {type:'timepicker', name:'Name', xlabel:'Name', required:true},
 	            {type:'colorpicker',  label:'Country', name:'Country', required:true},
 	            {type:'info', message:'Non Member', laf:'success'},
-	            {type:'datepicker',  label:'Age', name:'Age', required:true, options:{format:'dd-mm-yyyy'}},
+	            {type:'datepicker',  label:'Age', name:'Age', required:true, options:{format:'dd-mm-yyyy'}, buttonText:'Check' ,onClick:()=>{alert(123);}},
 	            {type:'multiSelect',  label:'Multi Select', name:'ms', required:true, render:function(d, i){ return d.name+' '+i; }, displayField:'name',valueField:'name',data:[{name:'Rana'},{name:'Motiur Mamma'}]},
 	            {type:'multiSelect',  label:'Multi Select2', name:'ms2', hwidth:'200px', onClick:function(val){console.log(val);}, width:'300px', required:true, displayField:'name',valueField:'name',data:[{name:'Rana'},{name:'Motiur'}]}
 	            ]

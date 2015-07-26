@@ -245,6 +245,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
     return (
             React.createElement("div", {className: cssClass('jwt-grid table-responsive', {hide:this.state.hide})}, 
            	 React.createElement("div", {className: "well"}, pager, " ", this.getNewItem(), " ", this.getButtons(), " ", this.getFilter(options)), 
+             React.createElement("div", {className: "scrollable"}, 
             React.createElement("table", {className: options.className}, 
                 React.createElement("thead", null, 
                     React.createElement("tr", null, 
@@ -272,7 +273,7 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
                 
                 )
             )
-			
+			       )
             )
         )
   }

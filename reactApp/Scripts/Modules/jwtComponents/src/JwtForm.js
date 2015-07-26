@@ -96,16 +96,16 @@ var JwtForm=React.createClass({
         switch(field.type.toLowerCase()){
               case 'radio':        
                 field.values.forEach(function(value){
-                     this.refs[field.name+value].getDOMNode().checked=(data[field.name]===value)                 
+                     this.refs[field.name+value].getDOMNode().checked=(data[field.name]===value);                 
                   
                 }.bind(this))
               break;
               case 'checkbox':
-                 this.refs[field.name].getDOMNode().checked = !!data[field.name]             
+                 this.refs[field.name].getDOMNode().checked = !!data[field.name] ;            
               break;
               case 'checkboxInlines':
                   field.values.forEach(function(value){           
-                       this.refs[field.name+value].getDOMNode().checked = !!data[value]         
+                       this.refs[field.name+value].getDOMNode().checked = !!data[value] ;        
                 }.bind(this))            
               break;
               case 'multiSelect':
@@ -113,7 +113,7 @@ var JwtForm=React.createClass({
               break; 
               case 'info': break;        
               default:
-                this.refs[field.name].getDOMNode().value=data[field.name]||''
+                $(this.refs[field.name].getDOMNode()).val(data[field.name]||'');
               break
         }
       }.bind(this))
@@ -131,22 +131,22 @@ var JwtForm=React.createClass({
         this.refs[fieldName].setData(values);
     },
     getFormData: function() {      
-      var data= this.__formData||{}
+      var data= this.__formData||{};
        this.props.options.fields.forEach(function(field) {
         switch(field.type.toLowerCase()){
            case 'radio':       
               field.values.forEach(function(value){
                 if(this.refs[field.name+value].getDOMNode().checked){
-                     data[field.name]=value
+                     data[field.name]=value;
                 }
               }.bind(this))
            break;
            case 'checkbox':
-               data[field.name]=this.refs[field.name].getDOMNode().checked              
+               data[field.name]=this.refs[field.name].getDOMNode().checked ;             
            break;
            case 'checkboxinlines':
                 field.values.forEach(function(value){           
-                     data[value]=this.refs[field.name+value].getDOMNode().checked           
+                     data[value]=this.refs[field.name+value].getDOMNode().checked ;          
               }.bind(this))            
            break;
            case 'multiselect':
@@ -154,7 +154,7 @@ var JwtForm=React.createClass({
            break; 
            case 'info': break;         
            default:
-              data[field.name]=this.refs[field.name].getDOMNode().value
+              data[field.name]=$(this.refs[field.name].getDOMNode()).val();
            break;
         }
       }.bind(this))
@@ -280,11 +280,12 @@ var JwtForm=React.createClass({
       )
     },  
     
-    renderDatepicker: function(options) {
+    renderDatepicker: function(options) {      
       return this.renderField(options.name, options.label,
         <div ref={options.name+'009'} className="input-group date">
             <input type="text" className="form-control" id={options.name} ref={options.name}/>            
             <span className="input-group-addon"><i className="glyphicon glyphicon-calendar"></i></span>
+            {this.getButtons(options)}
         </div>
       )
     },
@@ -307,10 +308,41 @@ var JwtForm=React.createClass({
         <input type="file" className="form-control" name={options.name} id={options.name} ref={options.name}/>
       )
     },
+     getButtons:function(field){
+          if(!field.onClick){return null;}
+          if(!Array.isArray(field.onClick)){
+            field.onClick=[field.onClick];
+          }
+          var linkText=field.buttonText;
+          if(!linkText){
+            linkText=':::';
+          }
+          if(!Array.isArray(linkText)){
+            linkText=[linkText];
+          }
+          var icons=field.icon;
+          if(field.icon && !Array.isArray(icons)){
+            icons=[icons];      
+          }    
+
+          return  field.onClick.map(function(fx, id){
+            if(icons){
+              return <span  key={id} className="input-group-addon" title={linkText[id]} onClick={fx.bind(null)} ><i className={icons[id]}></i></span>
+            }
+            return <span key={id} style={{cursor:'pointer'}} className="input-group-addon" onClick={fx.bind(null)} >{linkText[id]} </span>
+          })    
+  },
     renderTextInput: function(options) {
-      return this.renderField(options.name, options.label,
-        <input type="text" className="form-control" id={options.name} ref={options.name}/>
-      )
+      var input=null;
+      if(options.onClick){
+        input=<div className="input-group date">
+           <input type="text" className="form-control" id={options.name} ref={options.name}/>
+            {this.getButtons(options)}
+         </div>
+      }else{
+        input= <input type="text" className="form-control" id={options.name} ref={options.name}/>
+      }
+      return this.renderField(options.name, options.label,input);
     },
 
     renderTextarea: function(options) {

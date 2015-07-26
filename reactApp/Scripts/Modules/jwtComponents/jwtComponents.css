@@ -9,6 +9,13 @@
 .jwt-grid .pagination{
     margin:0px;
 }
+.scrollable {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    xborder: 1px solid #dddddd;
+    xmargin: 10px 0 !important;
+}
 .jqstooltip {
   width: auto !important;
   height: auto !important;
@@ -76,6 +83,9 @@
 }
 .jwt-grid table thead .sort{
   cursor:pointer;
+}
+.jwt-grid table thead th{
+  vertical-align: top;
 }
 .jwt-grid table thead .sort span{
      width: 14px; 
