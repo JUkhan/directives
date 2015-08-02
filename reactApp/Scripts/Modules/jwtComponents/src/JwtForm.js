@@ -3,7 +3,7 @@ import {cssClass, capitalize} from 'Scripts/Modules/jwtComponents/JwtUtil.js';
 
 var JwtForm=React.createClass({
     getInitialState:function(){
-        return {errors: {},  isHide:false, message:null}
+        return {errors: {},  isHide:false, message:null, col:1, labelCol:4, inputCol:6}
     },
     getDefaultProps:function(){
       return { options:{}}
@@ -117,7 +117,7 @@ var JwtForm=React.createClass({
               break
         }
       }.bind(this))
-      this.isValid()
+      //this.isValid()
     },
     setSelectOptions:function(fieldName, values){
       this.props.options.fields.forEach(function(field) {
@@ -183,16 +183,12 @@ var JwtForm=React.createClass({
                    <div className="panel-body">
                       {msg}
                       <form  ref="form" className="form-horizontal" encType={options.fileUpload?'multipart/form-data':null}>
-                          {this.getFields(options)}
+                          {this.__getFormFields(options)}
                       </form>
                    </div>
                    <div className="panel-footer">  
                         <div className="text-center">  
-                            <div classNames="btn-group">                                             
-                              <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>   
-                                  &nbsp;        
-                              <button type="button"  className="btn btn-info" onClick={this.handleCancel}>Cancel</button>   
-                            </div>                   
+                              {this.getActionButtons()}                 
                         </div>  
                    </div>
                   
@@ -200,57 +196,133 @@ var JwtForm=React.createClass({
          </div>
       
     },
+    getActionButtons:function(){
+      if(!this.props.options.buttons){
+        return <div className="btn-group">                                             
+                              <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>  
+                                 
+                              <button type="button"  className="btn btn-info" onClick={this.handleCancel}>Cancel</button>   
+                            </div>
+      }
+      return  <div className="btn-group">
+        {
+          this.props.options.buttons.map(function(btn, index){
+
+            if(btn.text && btn.className && btn.icon){
+              return <button key={index} type="button" title={btn.title||'You missed the title'} className={btn.className} onClick={btn.onClick}><span className={btn.icon}></span> {btn.text}</button>
+            }
+            else if(btn.text && btn.className){
+              return <button key={index} type="button" title={btn.title||'You missed the title'} className={btn.className} onClick={btn.onClick}>{btn.text}</button>
+            }
+            else if(btn.icon && btn.className){
+              return <button key={index} type="button" className={btn.className} title={btn.title||'You missed the title'} className={btn.className} onClick={btn.onClick}><span className={btn.icon}></span></button>
+            }
+            else if(btn.icon){
+              return <button key={index} type="button" className="btn btn-default" title={btn.title||'You missed the title'}  onClick={btn.onClick}><span className={btn.icon}></span></button>
+            }
+            else{
+              return <button key={index} type="button" title={btn.title||'You missed the title'} className="btn btn-primary" onClick={btn.onClick}>{btn.text}</button>
+            }
+          })
+        }
+      </div>
+  },
+    __getFormFields(options){
+      var colSpan=0;
+       for(var i=0,l=options.fields.length;i<l; i++){
+          if(options.fields[i].colSpan){
+            colSpan +=options.fields[i].colSpan-1;
+          }
+       }
+
+        if(this.state.col==1){return this.getFields(options);}
+        var rows= parseInt(options.fields.length/this.state.col) + ((options.fields.length%this.state.col)>0?1:0)+colSpan;
+        var res=[], col=parseInt(12/this.state.col);
+        for (var i = 0; i < rows; i++) {
+          var item=<div key={i} className="row">{this.__getCols(options, i, col) } </div>
+          
+          res.push(item);
+        }
+        return res;
+    },
+    __getCols(options, row, colNumber){
+      var col=colNumber, res=[], index;
+      
+      for (var ic = 0; ic < this.state.col; ic++) {
+        index=(row*this.state.col)+ic;
+        if(index>=options.fields.length){continue;}
+           if(options.fields[index].colSpan){
+              col=colNumber*options.fields[index].colSpan;
+              ic+=options.fields[index].colSpan-1;
+           }
+
+           res.push(<div key={index} className={'col-sm-'+col}>{this.getField(options.fields[index])}</div>);
+           col=colNumber;
+      }
+      return res;
+    },
+    getField(field){
+      switch(field.type.toLowerCase()){
+              case 'text':
+                return !field.hide && this.renderTextInput(field)
+              break;
+              case 'textarea':
+                return !field.hide && this.renderTextarea(field)
+              break;
+              case 'select':
+                return !field.hide && this.renderSelect(field)
+              break;
+              case 'radio':
+                return !field.hide && this.renderRadioInlines(field)
+              break;
+              case 'checkbox':
+                return !field.hide && this.renderCheckbox(field)
+              break;
+              case 'checkboxinlines':
+                return !field.hide && this.renderCheckboxInlines(field)
+              break;              
+              case 'file':
+                return !field.hide && this.renderFileInput(field)
+              break;
+              case 'multiselect':
+                return !field.hide && this.renderMultiSelectt(field)
+              break;
+              case 'timepicker':
+                return !field.hide && this.renderTimepicker(field)
+              break;
+              case 'colorpicker':
+                return !field.hide && this.renderColorpicker(field)
+              break;
+               case 'datepicker':
+                return !field.hide && this.renderDatepicker(field)
+              break;
+              case 'info':
+                return !field.hide && this.renderInfo(field)
+              break;
+           } 
+          return null;  
+    },
     getFields:function(options){
       if(!options.fields) return
       var me=this;
         return options.fields.map((field, index)=>{
           me.__key=index;
            field.hide=field.hide||false;
-           switch(field.type.toLowerCase()){
-              case 'text':
-                return !field.hide && me.renderTextInput(field)
-              break;
-              case 'textarea':
-                return !field.hide && me.renderTextarea(field)
-              break;
-              case 'select':
-                return !field.hide && me.renderSelect(field)
-              break;
-              case 'radio':
-                return !field.hide && me.renderRadioInlines(field)
-              break;
-              case 'checkbox':
-                return !field.hide && me.renderCheckbox(field)
-              break;
-              case 'checkboxinlines':
-                return !field.hide && me.renderCheckboxInlines(field)
-              break;              
-              case 'file':
-                return !field.hide && me.renderFileInput(field)
-              break;
-              case 'multiselect':
-                return !field.hide && me.renderMultiSelectt(field)
-              break;
-              case 'timepicker':
-                return !field.hide && me.renderTimepicker(field)
-              break;
-              case 'colorpicker':
-                return !field.hide && me.renderColorpicker(field)
-              break;
-               case 'datepicker':
-                return !field.hide && me.renderDatepicker(field)
-              break;
-              case 'info':
-                return !field.hide && me.renderInfo(field)
-              break;
-           }   
-           return null
+           return this.getField(field);
+           
         })
     },
     componentDidMount:function(){
+      if(this.props.options.col){this.state.col=this.props.options.col;}
+      if(this.props.options.labelCol){this.state.labelCol=this.props.options.labelCol;}
+      if(this.props.options.inputCol){this.state.inputCol=this.props.options.inputCol;}
+      if(this.state.col>1 && !this.props.options.inputCol){
+        this.state.inputCol=8;
+      }
+    var tid=  setTimeout(function(){
        this.props.options.fields.forEach(function(field) {
         switch(field.type.toLowerCase()){
-           case 'timepicker':       
+           case 'timepicker':               
                $(this.refs[field.name].getDOMNode()).timepicker(field.options||{});
            break;
            case 'colorpicker':       
@@ -261,8 +333,10 @@ var JwtForm=React.createClass({
            break;
         }
       }.bind(this));
-       if(this.props.componentDidMount){
-          this.props.componentDidMount(this);
+       clearTimeout(tid);
+}.bind(this), 0);
+       if(this.props.options.componentDidMount){
+          this.props.options.componentDidMount(this);
        }
     },
     renderInfo:function(options){
@@ -413,9 +487,10 @@ var JwtForm=React.createClass({
   },
   __key:1,
   renderField: function(id, label, field) {
+    
     return <div key={this.__key} className={cssClass('form-group', {'has-error': id in this.state.errors})}>
-      <label htmlFor={id} className="col-sm-4 control-label">{label}</label>
-      <div className="col-sm-6">
+      <label htmlFor={id} className={"col-sm-"+(this.state.labelCol)+" control-label"}>{label}</label>
+      <div className={"col-sm-"+this.state.inputCol}>
         {field}
       </div>
     </div>

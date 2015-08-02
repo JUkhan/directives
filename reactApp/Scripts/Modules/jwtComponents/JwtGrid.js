@@ -248,18 +248,19 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
              React.createElement("div", {className: "scrollable"}, 
             React.createElement("table", {className: options.className}, 
                 React.createElement("thead", null, 
+                    this.getHeadTpl(options), 
                     React.createElement("tr", null, 
                     
                     	headCheck 
                     	,
                         options.columns.map(function(col, index){
 							if(col.sort){
-								return  React.createElement("th", {key: index, onClick: that.onSort.bind(that, col), className: "sort"}, 
+								return  React.createElement("th", {key: index, style: col.style, onClick: that.onSort.bind(that, col), className: "sort"}, 
 								col.displayName||col.field, 
 								React.createElement("div", {className: "pull-right"}, React.createElement("span", {className: "glyphicon", "aria-hidden": "true"}))
 								)
 							}
-                            return React.createElement("th", {key: index}, col.displayName||col.field)
+                            return React.createElement("th", {key: index, style: col.style}, col.displayName||col.field)
                         })
                     
                     )
@@ -276,6 +277,14 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
 			       )
             )
         )
+  },
+  getHeadTpl:function(options){    
+    if(options.headTpl){
+      return options.headTpl.map(function(text, index){
+        return React.createElement("tr", {key: index, dangerouslySetInnerHTML: {__html: text}})
+      })
+    }
+    return null;
   }
 });
 

@@ -248,18 +248,19 @@ var JwtGrid = React.createClass({
              <div className="scrollable">
             <table className={options.className}>
                 <thead>
+                    {this.getHeadTpl(options)}
                     <tr>
                     {
                     	headCheck 
                     	,
                         options.columns.map(function(col, index){
 							if(col.sort){
-								return  <th key={index} onClick={that.onSort.bind(that, col)} className="sort">
+								return  <th key={index} style={col.style} onClick={that.onSort.bind(that, col)} className="sort">
 								{col.displayName||col.field}
 								<div className="pull-right"><span className="glyphicon" aria-hidden="true"></span></div>
 								</th>
 							}
-                            return <th key={index}>{col.displayName||col.field}</th>
+                            return <th key={index} style={col.style}>{col.displayName||col.field}</th>
                         })
                     }
                     </tr>
@@ -276,6 +277,14 @@ var JwtGrid = React.createClass({
 			       </div>
             </div>
         )
+  },
+  getHeadTpl:function(options){    
+    if(options.headTpl){
+      return options.headTpl.map(function(text, index){
+        return <tr key={index} dangerouslySetInnerHTML={{__html: text}}></tr>
+      })
+    }
+    return null;
   }
 });
 

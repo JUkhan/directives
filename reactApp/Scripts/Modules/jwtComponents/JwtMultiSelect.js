@@ -13,8 +13,10 @@ var JwtMultiSelect=React.createClass({displayName: "JwtMultiSelect",
       $(document.body).click(function(e){
       	var el=$(e.target);
       	if(el.parents('.ms-content').length==0 && !(el.hasClass('header')||el.parents('.header').length)){
-      	 	$(this.refs.mscontent.getDOMNode()).hide();
-      	 	this.state.isHidden=true;
+            if(this.refs.mscontent && !this.state.isHidden){
+            	 	$(this.refs.mscontent.getDOMNode()).hide();
+            	 	this.state.isHidden=true;
+            }
       	 }
       }.bind(this))
     },
