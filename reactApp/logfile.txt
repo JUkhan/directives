@@ -998,3 +998,5 @@ File name: 'E:\FFV\directives\reactApp\Scripts\Components\reactWidget\JwtMultiSe
 2015-07-31 21:16:42,576 [149] INFO  Jwtex.JwtExController - files found: 3
 2015-08-01 10:01:11,946 [341] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
 2015-08-01 10:01:11,946 [341] INFO  Jwtex.JwtExController - files found: 3
+2015-08-02 20:24:43,536 [10] INFO  Jwtex.JwtExController - name:jwtFormGrid, mode:Widgets
+2015-08-02 20:24:43,671 [10] INFO  Jwtex.JwtExController - files found: 3

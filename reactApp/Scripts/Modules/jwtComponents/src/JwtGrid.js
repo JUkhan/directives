@@ -200,10 +200,10 @@ var JwtGrid = React.createClass({
   render: function() {
     var options=this.props.options;     
     if(!(this.props.data|| this.state.data)){
-		if(options.columns){
-			return this.getDataNotFound();
-		}
-       return <div><b>{options.loadingText||'Data not found.'}</b></div> 
+    		if(options.columns){
+    			return this.getDataNotFound();
+    		}
+        return <div><b>{options.loadingText||'Data not found.'}</b></div> 
     }
 	var len=0, data, pager=null, limit=options.limit||20;
 

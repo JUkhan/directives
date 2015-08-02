@@ -312,13 +312,16 @@ var JwtForm=React.createClass({displayName: "JwtForm",
            
         }.bind(this))
     },
+    componentWillMount:function(){
+          if(this.props.options.col){this.state.col=this.props.options.col;}
+          if(this.props.options.labelCol){this.state.labelCol=this.props.options.labelCol;}
+          if(this.props.options.inputCol){this.state.inputCol=this.props.options.inputCol;}
+          if(this.state.col>1 && !this.props.options.inputCol){
+             this.state.inputCol=8;
+          }
+    },
     componentDidMount:function(){
-      if(this.props.options.col){this.state.col=this.props.options.col;}
-      if(this.props.options.labelCol){this.state.labelCol=this.props.options.labelCol;}
-      if(this.props.options.inputCol){this.state.inputCol=this.props.options.inputCol;}
-      if(this.state.col>1 && !this.props.options.inputCol){
-        this.state.inputCol=8;
-      }
+     
     var tid=  setTimeout(function(){
        this.props.options.fields.forEach(function(field) {
         switch(field.type.toLowerCase()){
