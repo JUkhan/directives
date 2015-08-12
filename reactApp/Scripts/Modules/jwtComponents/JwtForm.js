@@ -89,6 +89,10 @@ var JwtForm=React.createClass({displayName: "JwtForm",
      
       return isValid && (this.props.options.validate? this.props.options.validate(this.getFormData(), this):true)
     },
+    __toBool:function(val){
+       if(val==='0' || val==false) return false;
+       return true;
+    },
     __formData:null,
     setFormData:function(data){
       this.__formData=data;
@@ -101,14 +105,14 @@ var JwtForm=React.createClass({displayName: "JwtForm",
                 }.bind(this))
               break;
               case 'checkbox':
-                 this.refs[field.name].getDOMNode().checked = !!data[field.name] ;            
+                 this.refs[field.name].getDOMNode().checked = this.__toBool(data[field.name]) ;            
               break;
-              case 'checkboxInlines':
-                  field.values.forEach(function(value){           
-                       this.refs[field.name+value].getDOMNode().checked = !!data[value] ;        
+              case 'checkboxinlines':
+                  field.values.forEach(function(value){ 
+                       this.refs[field.name+value].getDOMNode().checked = this.__toBool(data[value]) ;        
                 }.bind(this))            
               break;
-              case 'multiSelect':
+              case 'multiselect':
                  this.refs[field.name].setValue(data[field.name]);             
               break; 
               case 'info': break;        

@@ -198,8 +198,8 @@ var JwtGrid = React.createClass({displayName: "JwtGrid",
     	)
   },
   render: function() {
-    var options=this.props.options;     
-    if(!(this.props.data|| this.state.data)){
+    var options=this.props.options, data=this.props.data|| this.state.data;     
+    if(!data || data.length==0){
     		if(options.columns){
     			return this.getDataNotFound();
     		}
