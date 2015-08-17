@@ -33,7 +33,7 @@ var JwtNode=React.createClass({displayName: "JwtNode",
      	that.icon='minus';
       return React.createElement("tr", null, 
         React.createElement("td", {colSpan: that.props.options.columns.length, className: "child-td"}, 
-          React.createElement("table", {className: "tgrid"}, 
+          React.createElement("table", {className: "tgrid child-table"}, 
             React.createElement("tbody", null, 
 
                    [React.createElement("tr", {key: that.props.index, className: 'level-'+that.props.level},                       
@@ -41,7 +41,7 @@ var JwtNode=React.createClass({displayName: "JwtNode",
 					that.props.options.columns.map(that.renderRow)
                    ),
                     that.props.data[that.props.options.childListName].map(function(row, index){
-           
+                        
                          return React.createElement(JwtNode, {key: index+that.props.index+1, level: that.props.level+1, options: that.props.options, data: row, index: index})
                     })]
              
@@ -70,7 +70,7 @@ var JwtNode=React.createClass({displayName: "JwtNode",
             return React.createElement("td", {key: id, style: col.style}, React.createElement(JwtSparkLine, {data: this.props.data[col.field], options: col.options}))
         }
         if(col.render){
-            return React.createElement("td", {key: id, dangerouslySetInnerHTML: {__html: col.render(this.props.data,this.props.index)}})
+            return React.createElement("td", {key: id, style: col.style, dangerouslySetInnerHTML: {__html: col.render(this.props.data,this.props.index)}})
         }
         if(col.onClick){                    
             return React.createElement("td", {key: id, className: col.className, style: col.style}, this.getLinks(this.props.data, col, this.props.index))

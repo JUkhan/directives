@@ -13,10 +13,12 @@ class testCtrl extends BaseCtrl
 		    filter:true, childListName:'ChildList',
 		    columns:[{field:'Name', style:{width:200}, sort:true, onClick:(row, index)=>{ alert(row.Address)} },
 		    
-		    {field:'Address', style:{width:200}}]
+		    {field:'Address', style:{width:200}, render:row=>row.Address+row.Name}
+		    
+		    ]
 		};
 		var data=[{Name:'Jasim', Address:'Tangail'},
-		{Name:'Salim', Address:'Tangail-2', Level:1,
+		{Name:'Salim', Address:'Tangail-2',
 		    ChildList:[{Name:'Salim-1', Address:'Add1',  ChildList:[{Name:'Salim-11', Address:'Add1'},{Name:'Salim-22', Address:'Add2'}]},{Name:'Salim-2', Address:'Add2'}]
 		}
 		];
